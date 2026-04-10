@@ -4,10 +4,10 @@
 //  Edit this file with your hosting credentials
 // ═══════════════════════════════════════════════
 
-define('DB_HOST', 'localhost');
-define('DB_NAME', 'joujou2_db');
-define('DB_USER', 'root');        // ← Change to your DB username
-define('DB_PASS', '');            // ← Change to your DB password
+define('DB_HOST', 'mysql.railway.internal');
+define('DB_NAME', 'railway');
+define('DB_USER', 'root');
+define('DB_PASS', 'TYhyOZjdgwvCmYcuJYOFcBdzcDBMDmTz');
 define('DB_CHARSET', 'utf8mb4');
 
 // Admin email for order notifications
