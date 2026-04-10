@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Produit — JouJou Accessoires</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --cream:#fdf8f2;--blush:#fceef4;--rose:#f0c4d4;--pink:#d4708a;--deep:#7a2840;
+  --mauve:#b5647a;--gold:#c9a060;--text:#2d1a22;--muted:#9a7080;--white:#fff;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Jost',sans-serif;background:var(--cream);color:var(--text);overflow-x:hidden}
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-track{background:var(--blush)}
+::-webkit-scrollbar-thumb{background:var(--rose);border-radius:3px}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:300;height:72px;display:flex;align-items:center;justify-content:space-between;padding:0 5%;background:rgba(253,248,242,.94);backdrop-filter:blur(14px);border-bottom:1px solid rgba(208,160,176,.18)}
+.logo-wrap{display:flex;align-items:center;gap:10px;cursor:pointer;text-decoration:none}
+.logo-name{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;color:var(--deep);letter-spacing:.3px}
+.logo-name span{color:var(--pink);font-style:italic}
+.nav-links{display:flex;gap:2.2rem}
+.nav-links a{font-size:12px;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);cursor:pointer;text-decoration:none;position:relative;transition:color .2s}
+.nav-links a::after{content:'';position:absolute;bottom:-3px;left:0;width:0;height:1px;background:var(--pink);transition:width .3s}
+.nav-links a:hover{color:var(--deep)}
+.nav-links a:hover::after{width:100%}
+.nav-right{display:flex;align-items:center;gap:12px}
+.cart-btn{background:var(--deep);color:white;border:none;padding:10px 22px;border-radius:28px;font-size:11px;cursor:pointer;font-family:'Jost',sans-serif;letter-spacing:1.2px;text-transform:uppercase;display:flex;align-items:center;gap:8px;transition:all .25s}
+.cart-btn:hover{background:var(--pink);transform:translateY(-1px)}
+.cart-n{background:var(--gold);color:white;border-radius:50%;width:18px;height:18px;font-size:10px;display:flex;align-items:center;justify-content:center;font-weight:600}
+
+/* ── BREADCRUMB ── */
+.breadcrumb{padding:100px 8% 0;display:flex;align-items:center;gap:8px;font-size:12px;color:var(--muted)}
+.breadcrumb a{color:var(--muted);text-decoration:none;transition:color .2s}
+.breadcrumb a:hover{color:var(--pink)}
+.breadcrumb span{color:var(--deep);font-weight:500}
+
+/* ── PRODUCT PAGE ── */
+.product-page{padding:32px 8% 80px;display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start}
+
+/* ── GALLERY ── */
+.gallery{position:sticky;top:90px}
+.main-img-wrap{border-radius:24px;overflow:hidden;background:var(--blush);aspect-ratio:1;position:relative;box-shadow:0 20px 60px rgba(122,40,64,.12)}
+.main-img-wrap img{width:100%;height:100%;object-fit:cover;transition:transform .6s cubic-bezier(.16,1,.3,1)}
+.main-img-wrap:hover img{transform:scale(1.04)}
+.badge-wrap{position:absolute;top:16px;left:16px;display:flex;flex-direction:column;gap:6px}
+.p-badge{padding:5px 12px;border-radius:12px;font-size:10px;letter-spacing:1.2px;text-transform:uppercase;font-weight:600}
+.badge-new{background:var(--deep);color:white}
+.badge-sale{background:var(--gold);color:white}
+.fav-btn{position:absolute;top:16px;right:16px;background:white;border:none;width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:18px;transition:all .25s;box-shadow:0 4px 12px rgba(0,0,0,.1)}
+.fav-btn:hover{background:var(--blush);transform:scale(1.1)}
+.fav-btn.liked{color:var(--pink)}
+.thumbnails{display:flex;gap:10px;margin-top:12px}
+.thumb{width:70px;height:70px;border-radius:12px;overflow:hidden;cursor:pointer;border:2px solid transparent;transition:all .2s;flex-shrink:0}
+.thumb img{width:100%;height:100%;object-fit:cover}
+.thumb.active,.thumb:hover{border-color:var(--pink)}
+
+/* ── PRODUCT INFO ── */
+.prod-info{padding-top:8px}
+.prod-cat-tag{display:inline-flex;align-items:center;gap:8px;background:var(--blush);color:var(--mauve);padding:6px 16px;border-radius:20px;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:1rem;border:1px solid var(--rose)}
+.prod-name{font-family:'Cormorant Garamond',serif;font-size:clamp(32px,3vw,46px);color:var(--deep);font-weight:500;line-height:1.15;margin-bottom:1rem}
+.prod-rating{display:flex;align-items:center;gap:8px;margin-bottom:1.4rem}
+.stars{color:var(--gold);font-size:15px;letter-spacing:2px}
+.rating-count{font-size:12px;color:var(--muted)}
+
+.price-row{display:flex;align-items:baseline;gap:12px;margin-bottom:1.8rem;padding-bottom:1.8rem;border-bottom:1px solid var(--rose)}
+.price-main{font-family:'Cormorant Garamond',serif;font-size:38px;color:var(--deep);font-weight:600}
+.price-old{font-size:18px;color:var(--muted);text-decoration:line-through}
+.price-save{background:#e8f5e9;color:#2e7d32;font-size:11px;font-weight:600;padding:4px 10px;border-radius:8px;letter-spacing:.5px}
+
+.prod-desc{font-size:14px;color:var(--muted);line-height:1.9;font-weight:300;margin-bottom:1.8rem}
+
+/* ── FEATURES ── */
+.features{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1.8rem}
+.feature-item{background:white;border:1px solid rgba(208,160,176,.2);border-radius:14px;padding:14px 16px;display:flex;align-items:center;gap:10px}
+.feature-icon{width:36px;height:36px;background:var(--blush);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.feature-text{font-size:12px;color:var(--text);line-height:1.4}
+.feature-text strong{display:block;font-size:11px;color:var(--muted);letter-spacing:.5px;text-transform:uppercase;margin-bottom:2px;font-weight:500}
+
+/* ── ADD TO CART ── */
+.qty-row{display:flex;align-items:center;gap:16px;margin-bottom:1.4rem}
+.qty-label{font-size:12px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;font-weight:500}
+.qty-ctrl{display:flex;align-items:center;gap:0;border:1.5px solid var(--rose);border-radius:28px;overflow:hidden}
+.qty-ctrl button{background:none;border:none;width:40px;height:40px;font-size:18px;cursor:pointer;color:var(--deep);transition:background .2s;display:flex;align-items:center;justify-content:center}
+.qty-ctrl button:hover{background:var(--blush)}
+.qty-ctrl span{min-width:36px;text-align:center;font-size:15px;font-weight:500;color:var(--deep)}
+
+.cta-row{display:flex;gap:12px;margin-bottom:1.4rem}
+.btn-cart{flex:1;background:var(--deep);color:white;border:none;padding:16px 24px;border-radius:28px;font-size:13px;letter-spacing:1.2px;text-transform:uppercase;cursor:pointer;font-family:'Jost',sans-serif;transition:all .25s;display:flex;align-items:center;justify-content:center;gap:8px}
+.btn-cart:hover{background:var(--pink);transform:translateY(-2px);box-shadow:0 8px 24px rgba(212,112,138,.3)}
+.btn-fav{background:white;color:var(--deep);border:1.5px solid var(--rose);padding:16px 20px;border-radius:28px;font-size:18px;cursor:pointer;transition:all .25s}
+.btn-fav:hover{border-color:var(--pink);color:var(--pink);background:var(--blush)}
+.btn-fav.liked{color:var(--pink);border-color:var(--pink)}
+
+.delivery-info{background:var(--blush);border:1px solid var(--rose);border-radius:16px;padding:16px 20px;display:flex;flex-direction:column;gap:10px;margin-bottom:1.8rem}
+.delivery-row{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--text)}
+.delivery-icon{font-size:16px;width:28px;text-align:center}
+
+/* ── TABS ── */
+.tabs-section{margin-top:2rem;border-top:1px solid var(--rose);padding-top:1.5rem}
+.tabs-nav{display:flex;gap:0;border-bottom:1px solid var(--rose);margin-bottom:1.5rem}
+.tab-btn{background:none;border:none;padding:12px 20px;font-size:12px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);cursor:pointer;font-family:'Jost',sans-serif;position:relative;transition:color .2s}
+.tab-btn::after{content:'';position:absolute;bottom:-1px;left:0;right:0;height:2px;background:var(--pink);transform:scaleX(0);transition:transform .3s}
+.tab-btn.active{color:var(--deep)}
+.tab-btn.active::after{transform:scaleX(1)}
+.tab-content{display:none;font-size:14px;color:var(--muted);line-height:1.9}
+.tab-content.active{display:block}
+.spec-table{width:100%;border-collapse:collapse}
+.spec-table tr{border-bottom:1px solid var(--blush)}
+.spec-table td{padding:10px 0;font-size:13px}
+.spec-table td:first-child{color:var(--muted);width:40%;font-weight:500}
+.spec-table td:last-child{color:var(--text)}
+
+/* ── RELATED PRODUCTS ── */
+.related-section{padding:60px 8%;background:white}
+.section-head{text-align:center;margin-bottom:3rem}
+.section-label{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--mauve);margin-bottom:10px}
+.section-title{font-family:'Cormorant Garamond',serif;font-size:clamp(28px,3vw,40px);color:var(--deep);font-weight:500}
+.section-title em{color:var(--pink);font-style:italic}
+.section-sep{width:50px;height:1.5px;background:var(--rose);margin:16px auto 0}
+.related-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:24px}
+.p-card{background:var(--cream);border-radius:20px;overflow:hidden;cursor:pointer;transition:transform .3s,box-shadow .3s;border:1px solid rgba(208,160,176,.15)}
+.p-card:hover{transform:translateY(-6px);box-shadow:0 16px 40px rgba(122,40,64,.12)}
+.p-img{position:relative;height:200px;overflow:hidden;background:var(--blush)}
+.p-img img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
+.p-card:hover .p-img img{transform:scale(1.08)}
+.p-info{padding:16px}
+.p-cat{font-size:10px;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:5px}
+.p-name{font-family:'Cormorant Garamond',serif;font-size:17px;color:var(--text);font-weight:500;margin-bottom:10px}
+.p-footer{display:flex;align-items:center;justify-content:space-between}
+.p-price{font-family:'Cormorant Garamond',serif;font-size:19px;color:var(--deep);font-weight:600}
+.p-old{font-size:12px;color:var(--muted);text-decoration:line-through;margin-left:6px}
+.add-to-cart{background:var(--blush);border:1px solid var(--rose);color:var(--deep);width:34px;height:34px;border-radius:50%;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s}
+.add-to-cart:hover{background:var(--deep);color:white;border-color:var(--deep)}
+
+/* ── CART PANEL ── */
+.backdrop{position:fixed;inset:0;background:rgba(45,26,34,.4);z-index:350;opacity:0;pointer-events:none;transition:opacity .3s}
+.backdrop.show{opacity:1;pointer-events:all}
+.cart-panel{position:fixed;right:-400px;top:0;width:380px;height:100vh;background:white;z-index:400;transition:right .35s cubic-bezier(.4,0,.2,1);overflow-y:auto;border-left:1px solid rgba(208,160,176,.2);box-shadow:-16px 0 50px rgba(122,40,64,.08)}
+.cart-panel.open{right:0}
+.cart-head{padding:24px;border-bottom:1px solid var(--blush);display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;background:white;z-index:2}
+.cart-title{font-family:'Cormorant Garamond',serif;font-size:24px;color:var(--deep);font-weight:500}
+.close-btn{background:var(--blush);border:none;width:34px;height:34px;border-radius:50%;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;color:var(--muted);transition:all .2s}
+.close-btn:hover{background:var(--rose);color:var(--deep)}
+.cart-body{padding:16px 24px;flex:1}
+.cart-foot{padding:16px 24px;border-top:1px solid var(--blush)}
+.c-item{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid var(--blush)}
+.c-item-img{width:60px;height:60px;border-radius:10px;overflow:hidden;flex-shrink:0;background:var(--blush)}
+.c-item-img img{width:100%;height:100%;object-fit:cover}
+.c-item-info{flex:1}
+.c-item-name{font-size:13px;font-weight:500;color:var(--text);margin-bottom:3px}
+.c-item-price{font-size:12px;color:var(--muted)}
+.c-qty{display:flex;align-items:center;gap:8px;margin-top:6px}
+.qty-btn{background:var(--blush);border:none;width:24px;height:24px;border-radius:50%;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;color:var(--deep);transition:background .2s}
+.qty-btn:hover{background:var(--rose)}
+.qty-n{font-size:13px;font-weight:500;min-width:16px;text-align:center}
+.c-remove{background:none;border:none;color:var(--muted);cursor:pointer;font-size:14px;padding:4px;transition:color .2s;align-self:flex-start;margin-top:4px}
+.c-remove:hover{color:var(--deep)}
+.cart-empty{text-align:center;padding:3rem 1rem;color:var(--muted)}
+.cart-empty-icon{font-size:48px;margin-bottom:1rem;opacity:.4}
+.cart-row{display:flex;justify-content:space-between;font-size:13px;color:var(--muted);margin-bottom:8px}
+.cart-total-row{display:flex;justify-content:space-between;font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--deep);font-weight:600;margin:12px 0}
+.checkout-btn{width:100%;background:var(--deep);color:white;border:none;padding:14px;border-radius:28px;font-size:12px;letter-spacing:1.2px;text-transform:uppercase;cursor:pointer;font-family:'Jost',sans-serif;transition:all .25s;margin-top:8px}
+.checkout-btn:hover{background:var(--pink)}
+.modal-overlay{position:fixed;inset:0;background:rgba(45,26,34,.55);z-index:500;display:none;align-items:center;justify-content:center;padding:1rem;backdrop-filter:blur(3px)}
+.modal-overlay.show{display:flex}
+.modal{background:white;border-radius:24px;padding:2rem;width:100%;max-width:480px;max-height:90vh;overflow-y:auto;animation:slideUp .3s cubic-bezier(.16,1,.3,1)}
+@keyframes slideUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+.modal-title{font-family:'Cormorant Garamond',serif;font-size:26px;color:var(--deep);font-weight:500;margin-bottom:.4rem}
+.modal-sub{font-size:13px;color:var(--muted);margin-bottom:1.5rem}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
+.form-label{font-size:11px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;display:block;margin-bottom:5px;font-weight:500}
+.form-input{width:100%;border:1.5px solid var(--rose);border-radius:12px;padding:11px 14px;font-size:13px;font-family:'Jost',sans-serif;color:var(--text);outline:none;background:var(--cream);transition:border-color .2s;margin-bottom:12px}
+.form-input:focus{border-color:var(--pink);box-shadow:0 0 0 3px rgba(212,112,138,.1)}
+.order-summary{background:var(--blush);border-radius:14px;padding:14px;margin:1rem 0;border:1px solid var(--rose)}
+.order-summary-title{font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:10px;font-weight:500}
+.order-line{display:flex;justify-content:space-between;font-size:13px;color:var(--text);margin-bottom:6px}
+.order-total-line{display:flex;justify-content:space-between;font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:600;color:var(--deep);border-top:1px solid var(--rose);padding-top:8px;margin-top:8px}
+.submit-btn{width:100%;background:var(--deep);color:white;border:none;padding:15px;border-radius:28px;font-size:13px;letter-spacing:1.2px;text-transform:uppercase;cursor:pointer;font-family:'Jost',sans-serif;transition:all .25s;margin-top:.5rem}
+.submit-btn:hover{background:var(--pink)}
+.cancel-lnk{display:block;text-align:center;margin-top:12px;font-size:12px;color:var(--muted);cursor:pointer}
+.cancel-lnk:hover{color:var(--pink)}
+.success-wrap{text-align:center;padding:1rem}
+.success-h{font-family:'Cormorant Garamond',serif;font-size:28px;color:var(--deep);margin-bottom:.8rem;font-weight:500}
+.success-p{font-size:14px;color:var(--muted);line-height:1.7;margin-bottom:1rem}
+.order-id{background:var(--blush);border-radius:10px;padding:8px 16px;font-size:13px;font-weight:600;color:var(--deep);display:inline-block;border:1px solid var(--rose)}
+.done-btn{background:var(--deep);color:white;border:none;padding:13px 30px;border-radius:28px;font-size:12px;letter-spacing:1px;text-transform:uppercase;cursor:pointer;font-family:'Jost',sans-serif;margin-top:1rem;transition:all .25s}
+.done-btn:hover{background:var(--pink)}
+
+/* ── TOAST ── */
+.toast{position:fixed;bottom:28px;right:28px;background:var(--deep);color:white;padding:12px 20px;border-radius:12px;font-size:13px;z-index:600;opacity:0;transform:translateY(10px);transition:all .3s;pointer-events:none;border-left:3px solid var(--gold);box-shadow:0 8px 24px rgba(45,26,34,.3)}
+.toast.show{opacity:1;transform:translateY(0)}
+
+/* ── NOT FOUND ── */
+.not-found{text-align:center;padding:160px 8% 80px;min-height:60vh}
+.not-found h2{font-family:'Cormorant Garamond',serif;font-size:48px;color:var(--deep);margin-bottom:1rem}
+.not-found p{color:var(--muted);margin-bottom:2rem}
+
+/* ── LOADING ── */
+.loading{text-align:center;padding:160px 8% 80px;min-height:60vh;color:var(--muted);font-size:14px}
+.loading-spinner{width:40px;height:40px;border:3px solid var(--rose);border-top-color:var(--pink);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 1rem}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+@media(max-width:900px){
+  .product-page{grid-template-columns:1fr;gap:2rem}
+  .gallery{position:static}
+  .features{grid-template-columns:1fr}
+  .nav-links{display:none}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="logo-wrap" href="index.html">
+    <div class="logo-name">JouJou <span>Accessoires</span></div>
+  </a>
+  <div class="nav-links">
+    <a href="index.html">Accueil</a>
+    <a href="index.html#boutique">Boutique</a>
+    <a href="index.html#apropos">À propos</a>
+    <a href="index.html#contact">Contact</a>
+  </div>
+  <div class="nav-right">
+    <button class="cart-btn" onclick="openCart()">
+      🛒 Panier <span class="cart-n" id="cartN">0</span>
+    </button>
+  </div>
+</nav>
+
+<!-- MAIN CONTENT (injected by JS) -->
+<div id="mainContent">
+  <div class="loading">
+    <div class="loading-spinner"></div>
+    Chargement du produit...
+  </div>
+</div>
+
+<!-- RELATED PRODUCTS -->
+<div class="related-section" id="relatedSection" style="display:none">
+  <div class="section-head">
+    <div class="section-label">Vous aimerez aussi</div>
+    <div class="section-title">Produits <em>similaires</em></div>
+    <div class="section-sep"></div>
+  </div>
+  <div class="related-grid" id="relatedGrid"></div>
+</div>
+
+<!-- CART PANEL -->
+<div class="backdrop" id="backdrop" onclick="closeCart()"></div>
+<div class="cart-panel" id="cartPanel">
+  <div class="cart-head">
+    <div class="cart-title">Mon Panier</div>
+    <button class="close-btn" onclick="closeCart()">✕</button>
+  </div>
+  <div class="cart-body" id="cartBody"></div>
+  <div class="cart-foot" id="cartFoot"></div>
+</div>
+
+<!-- ORDER MODAL -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal" id="modalBox"></div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+var API = 'api/';
+var products = [];
+var cart = [];
+var favorites = new Set();
+var currentQty = 1;
+var currentProduct = null;
+
+// ── Get product ID from URL ──
+function getProductId() {
+  var params = new URLSearchParams(window.location.search);
+  return parseInt(params.get('id')) || null;
+}
+
+// ── Load all products then show the current one ──
+async function init() {
+  try {
+    var res  = await fetch(API + 'get_products.php');
+    var data = await res.json();
+    if (data.success) {
+      products = data.products;
+      var id = getProductId();
+      if (id) {
+        var p = products.find(function(x){ return x.id === id; });
+        if (p) {
+          currentProduct = p;
+          document.title = p.name + ' — JouJou Accessoires';
+          renderProduct(p);
+          renderRelated(p);
+        } else {
+          showNotFound();
+        }
+      } else {
+        showNotFound();
+      }
+    }
+  } catch(e) {
+    document.getElementById('mainContent').innerHTML =
+      '<div class="not-found"><h2>Erreur</h2><p>Impossible de charger le produit.</p><a href="index.html"><button style="background:var(--deep);color:white;border:none;padding:13px 30px;border-radius:28px;font-size:12px;letter-spacing:1px;text-transform:uppercase;cursor:pointer;font-family:Jost,sans-serif">← Retour</button></a></div>';
+  }
+}
+
+function showNotFound() {
+  document.getElementById('mainContent').innerHTML =
+    '<div class="not-found">' +
+    '<div style="font-size:60px;margin-bottom:1rem">🌸</div>' +
+    '<h2>Produit introuvable</h2>' +
+    '<p>Ce produit n\'existe pas ou a été retiré.</p>' +
+    '<a href="index.html"><button style="background:var(--deep);color:white;border:none;padding:13px 30px;border-radius:28px;font-size:12px;letter-spacing:1px;text-transform:uppercase;cursor:pointer;font-family:Jost,sans-serif">← Retour à la boutique</button></a>' +
+    '</div>';
+}
+
+function renderProduct(p) {
+  var saving = p.old ? Math.round((1 - p.price / p.old) * 100) : 0;
+
+  // Multiple "thumbnails" — just repeat the image for demo (in real use, add more img fields)
+  var thumbs = [p.img, p.img, p.img].map(function(src, i) {
+    return '<div class="thumb' + (i === 0 ? ' active' : '') + '" onclick="switchImg(this, \'' + src + '\')">' +
+      '<img src="' + src + '" alt="">' +
+      '</div>';
+  }).join('');
+
+  var catLabels = { bagues:'Bague', colliers:'Collier', bracelets:'Bracelet', boucles:'Boucles d\'oreilles' };
+  var catLabel  = catLabels[p.cat] || p.cat;
+
+  document.getElementById('mainContent').innerHTML =
+    '<div class="breadcrumb">' +
+      '<a href="index.html">Accueil</a> &rsaquo; ' +
+      '<a href="index.html#boutique">Boutique</a> &rsaquo; ' +
+      '<span>' + p.name + '</span>' +
+    '</div>' +
+    '<div class="product-page">' +
+
+      // Gallery
+      '<div class="gallery">' +
+        '<div class="main-img-wrap">' +
+          '<img src="' + p.img + '" alt="' + p.name + '" id="mainImg">' +
+          '<div class="badge-wrap">' +
+            (p.isNew ? '<span class="p-badge badge-new">Nouveau</span>' : '') +
+            (p.old   ? '<span class="p-badge badge-sale">-' + saving + '%</span>' : '') +
+          '</div>' +
+          '<button class="fav-btn" id="mainFavBtn" onclick="toggleFavMain()">' +
+            (favorites.has(p.id) ? '❤️' : '🤍') +
+          '</button>' +
+        '</div>' +
+        '<div class="thumbnails">' + thumbs + '</div>' +
+      '</div>' +
+
+      // Info
+      '<div class="prod-info">' +
+        '<div class="prod-cat-tag">✦ ' + catLabel + '</div>' +
+        '<h1 class="prod-name">' + p.name + '</h1>' +
+        '<div class="prod-rating">' +
+          '<span class="stars">★★★★★</span>' +
+          '<span class="rating-count">(24 avis)</span>' +
+        '</div>' +
+        '<div class="price-row">' +
+          '<span class="price-main">' + p.price + ' TND</span>' +
+          (p.old ? '<span class="price-old">' + p.old + ' TND</span>' : '') +
+          (p.old ? '<span class="price-save">-' + saving + '%</span>' : '') +
+        '</div>' +
+        '<p class="prod-desc">Un bijou en acier inoxydable de qualité supérieure, conçu pour durer. Hypoallergénique et résistant, il ne ternit pas avec le temps. Parfait pour un usage quotidien ou pour offrir en cadeau.</p>' +
+
+        '<div class="features">' +
+          '<div class="feature-item"><div class="feature-icon">💎</div><div class="feature-text"><strong>Matière</strong>Acier inoxydable 316L</div></div>' +
+          '<div class="feature-item"><div class="feature-icon">🌿</div><div class="feature-text"><strong>Hypoallergénique</strong>Pour peaux sensibles</div></div>' +
+          '<div class="feature-item"><div class="feature-icon">✨</div><div class="feature-text"><strong>Finition</strong>Dorée / Argentée</div></div>' +
+          '<div class="feature-item"><div class="feature-icon">♾️</div><div class="feature-text"><strong>Durabilité</strong>Ne ternit jamais</div></div>' +
+        '</div>' +
+
+        '<div class="qty-row">' +
+          '<span class="qty-label">Quantité</span>' +
+          '<div class="qty-ctrl">' +
+            '<button onclick="changeQty(-1)">−</button>' +
+            '<span id="qtyDisplay">1</span>' +
+            '<button onclick="changeQty(1)">+</button>' +
+          '</div>' +
+        '</div>' +
+
+        '<div class="cta-row">' +
+          '<button class="btn-cart" onclick="addCurrentToCart()">🛒 Ajouter au panier</button>' +
+          '<button class="btn-fav' + (favorites.has(p.id) ? ' liked' : '') + '" id="favBtn" onclick="toggleFavMain()">🤍</button>' +
+        '</div>' +
+
+        '<div class="delivery-info">' +
+          '<div class="delivery-row"><span class="delivery-icon">🚚</span> Livraison rapide partout en Tunisie</div>' +
+          '<div class="delivery-row"><span class="delivery-icon">💳</span> Paiement à la livraison disponible</div>' +
+          '<div class="delivery-row"><span class="delivery-icon">🔄</span> Retour facile sous 7 jours</div>' +
+        '</div>' +
+
+        // Tabs
+        '<div class="tabs-section">' +
+          '<div class="tabs-nav">' +
+            '<button class="tab-btn active" onclick="switchTab(this,\'desc\')">Description</button>' +
+            '<button class="tab-btn" onclick="switchTab(this,\'specs\')">Caractéristiques</button>' +
+            '<button class="tab-btn" onclick="switchTab(this,\'reviews\')">Avis (24)</button>' +
+          '</div>' +
+          '<div class="tab-content active" id="tab-desc">' +
+            '<p>Ce bijou JouJou est fabriqué en acier inoxydable 316L, le même matériau utilisé dans les instruments chirurgicaux. Il résiste à l\'eau, à la sueur et aux produits cosmétiques.</p><br>' +
+            '<p>Chaque pièce est soigneusement inspectée avant expédition pour garantir une qualité irréprochable. Livré dans un élégant emballage cadeau.</p>' +
+          '</div>' +
+          '<div class="tab-content" id="tab-specs">' +
+            '<table class="spec-table">' +
+              '<tr><td>Matière</td><td>Acier inoxydable 316L</td></tr>' +
+              '<tr><td>Finition</td><td>Plaqué or 18 carats / Argent</td></tr>' +
+              '<tr><td>Hypoallergénique</td><td>Oui</td></tr>' +
+              '<tr><td>Résistance à l\'eau</td><td>Oui</td></tr>' +
+              '<tr><td>Catégorie</td><td>' + catLabel + '</td></tr>' +
+              '<tr><td>Emballage</td><td>Boîte cadeau incluse</td></tr>' +
+            '</table>' +
+          '</div>' +
+          '<div class="tab-content" id="tab-reviews">' +
+            '<div style="display:flex;flex-direction:column;gap:16px">' +
+              renderReview('Sana B.', 'Tunis', 'Magnifique bijou, exactement comme sur la photo. Qualité top !') +
+              renderReview('Rim K.', 'Sousse', 'Livraison rapide et emballage soigné. Je recommande !') +
+              renderReview('Mariem A.', 'Sfax', 'Très bonne qualité pour le prix. Je vais recommander.') +
+            '</div>' +
+          '</div>' +
+        '</div>' +
+      '</div>' +
+    '</div>';
+}
+
+function renderReview(name, city, text) {
+  var initial = name.charAt(0);
+  return '<div style="background:white;border-radius:16px;padding:16px 20px;border:1px solid rgba(208,160,176,.2)">' +
+    '<div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">' +
+      '<div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--rose),var(--pink));display:flex;align-items:center;justify-content:center;color:white;font-family:Cormorant Garamond,serif;font-size:16px;font-weight:600">' + initial + '</div>' +
+      '<div><div style="font-size:13px;font-weight:500;color:var(--text)">' + name + '</div><div style="font-size:11px;color:var(--muted)">' + city + '</div></div>' +
+      '<div style="margin-left:auto;color:var(--gold);font-size:13px">★★★★★</div>' +
+    '</div>' +
+    '<p style="font-size:13px;color:var(--muted);font-style:italic;line-height:1.6">« ' + text + ' »</p>' +
+    '</div>';
+}
+
+function renderRelated(current) {
+  var related = products.filter(function(p){ return p.id !== current.id && p.cat === current.cat; }).slice(0, 4);
+  if (!related.length) related = products.filter(function(p){ return p.id !== current.id; }).slice(0, 4);
+  if (!related.length) return;
+
+  document.getElementById('relatedSection').style.display = 'block';
+  document.getElementById('relatedGrid').innerHTML = related.map(function(p) {
+    return '<div class="p-card" onclick="goToProduct(' + p.id + ')">' +
+      '<div class="p-img"><img src="' + p.img + '" alt="' + p.name + '" loading="lazy"></div>' +
+      '<div class="p-info">' +
+        '<div class="p-cat">' + p.cat + '</div>' +
+        '<div class="p-name">' + p.name + '</div>' +
+        '<div class="p-footer">' +
+          '<div style="display:flex;align-items:baseline;gap:4px">' +
+            '<div class="p-price">' + p.price + ' TND</div>' +
+            (p.old ? '<div class="p-old">' + p.old + ' TND</div>' : '') +
+          '</div>' +
+          '<button class="add-to-cart" onclick="event.stopPropagation();addToCart(' + p.id + ')">+</button>' +
+        '</div>' +
+      '</div></div>';
+  }).join('');
+}
+
+function goToProduct(id) {
+  window.location.href = 'product.html?id=' + id;
+}
+
+// ── Gallery ──
+function switchImg(thumb, src) {
+  document.getElementById('mainImg').src = src;
+  document.querySelectorAll('.thumb').forEach(function(t){ t.classList.remove('active'); });
+  thumb.classList.add('active');
+}
+
+// ── Qty ──
+function changeQty(d) {
+  currentQty = Math.max(1, currentQty + d);
+  document.getElementById('qtyDisplay').textContent = currentQty;
+}
+
+// ── Fav ──
+function toggleFavMain() {
+  if (!currentProduct) return;
+  var id = currentProduct.id;
+  if (favorites.has(id)) {
+    favorites.delete(id);
+    document.getElementById('favBtn').classList.remove('liked');
+    document.getElementById('mainFavBtn').textContent = '🤍';
+  } else {
+    favorites.add(id);
+    document.getElementById('favBtn').classList.add('liked');
+    document.getElementById('mainFavBtn').textContent = '❤️';
+    showToast('Ajouté aux favoris');
+  }
+}
+
+// ── Add current product to cart ──
+function addCurrentToCart() {
+  if (!currentProduct) return;
+  var p  = currentProduct;
+  var ex = cart.find(function(x){ return x.id === p.id; });
+  if (ex) ex.qty += currentQty;
+  else    cart.push(Object.assign({}, p, { qty: currentQty }));
+  updateBadge();
+  showToast(p.name + ' ajouté au panier ✓');
+  openCart();
+}
+
+// ── Cart (related products) ──
+function addToCart(id) {
+  var p  = products.find(function(x){ return x.id === id; });
+  if (!p) return;
+  var ex = cart.find(function(x){ return x.id === id; });
+  if (ex) ex.qty++;
+  else    cart.push(Object.assign({}, p, { qty: 1 }));
+  updateBadge();
+  renderCartBody();
+  showToast(p.name + ' ajouté au panier');
+}
+
+function updateBadge() {
+  document.getElementById('cartN').textContent = cart.reduce(function(s,x){ return s + x.qty; }, 0);
+}
+
+function renderCartBody() {
+  var body = document.getElementById('cartBody');
+  var foot = document.getElementById('cartFoot');
+  if (!cart.length) {
+    body.innerHTML = '<div class="cart-empty"><div class="cart-empty-icon">🛍️</div><p style="font-size:14px;color:var(--muted)">Votre panier est vide</p></div>';
+    foot.innerHTML = '';
+    return;
+  }
+  body.innerHTML = cart.map(function(item) {
+    return '<div class="c-item">' +
+      '<div class="c-item-img"><img src="' + item.img + '" alt="' + item.name + '"></div>' +
+      '<div class="c-item-info">' +
+        '<div class="c-item-name">' + item.name + '</div>' +
+        '<div class="c-item-price">' + item.price + ' TND</div>' +
+        '<div class="c-qty">' +
+          '<button class="qty-btn" onclick="changeCartQty(' + item.id + ',-1)">−</button>' +
+          '<span class="qty-n">' + item.qty + '</span>' +
+          '<button class="qty-btn" onclick="changeCartQty(' + item.id + ',1)">+</button>' +
+        '</div>' +
+      '</div>' +
+      '<button class="c-remove" onclick="removeFromCart(' + item.id + ')">✕</button>' +
+      '</div>';
+  }).join('');
+  var sub = cart.reduce(function(s,x){ return s + x.price * x.qty; }, 0);
+  foot.innerHTML =
+    '<div class="cart-row"><span>Sous-total</span><span>' + sub + ' TND</span></div>' +
+    '<div class="cart-row"><span>Livraison</span><span>7 TND</span></div>' +
+    '<div class="cart-total-row"><span>Total</span><span>' + (sub + 7) + ' TND</span></div>' +
+    '<button class="checkout-btn" onclick="openOrderModal()">Commander maintenant →</button>';
+}
+
+function changeCartQty(id, d) {
+  var item = cart.find(function(x){ return x.id === id; });
+  if (!item) return;
+  item.qty += d;
+  if (item.qty <= 0) cart = cart.filter(function(x){ return x.id !== id; });
+  updateBadge();
+  renderCartBody();
+}
+
+function removeFromCart(id) {
+  cart = cart.filter(function(x){ return x.id !== id; });
+  updateBadge();
+  renderCartBody();
+}
+
+function openCart()  { renderCartBody(); document.getElementById('cartPanel').classList.add('open'); document.getElementById('backdrop').classList.add('show'); }
+function closeCart() { document.getElementById('cartPanel').classList.remove('open'); document.getElementById('backdrop').classList.remove('show'); }
+
+// ── Tabs ──
+function switchTab(btn, id) {
+  document.querySelectorAll('.tab-btn').forEach(function(b){ b.classList.remove('active'); });
+  document.querySelectorAll('.tab-content').forEach(function(c){ c.classList.remove('active'); });
+  btn.classList.add('active');
+  document.getElementById('tab-' + id).classList.add('active');
+}
+
+// ── Order modal ──
+function openOrderModal() {
+  closeCart();
+  var sub = cart.reduce(function(s,x){ return s + x.price * x.qty; }, 0);
+  var summaryLines = cart.map(function(i){
+    return '<div class="order-line"><span>' + i.name + ' x' + i.qty + '</span><span>' + (i.price * i.qty) + ' TND</span></div>';
+  }).join('');
+  document.getElementById('modalBox').innerHTML =
+    '<div class="modal-title">Finaliser la commande</div>' +
+    '<div class="modal-sub">Remplissez vos informations 🌸</div>' +
+    '<div class="form-row">' +
+      '<div><label class="form-label">Prénom *</label><input class="form-input" id="fn" placeholder="Votre prénom"></div>' +
+      '<div><label class="form-label">Nom</label><input class="form-input" id="ln" placeholder="Votre nom"></div>' +
+    '</div>' +
+    '<label class="form-label">Téléphone *</label><input class="form-input" id="ph" type="tel" placeholder="+216 XX XXX XXX">' +
+    '<label class="form-label">Adresse *</label><input class="form-input" id="ad" placeholder="Rue, quartier...">' +
+    '<div class="form-row">' +
+      '<div><label class="form-label">Ville</label><input class="form-input" id="ci" placeholder="Tunis"></div>' +
+      '<div><label class="form-label">Code postal</label><input class="form-input" id="zp" placeholder="1000"></div>' +
+    '</div>' +
+    '<label class="form-label">Note (optionnel)</label><input class="form-input" id="nt" placeholder="Instructions...">' +
+    '<div class="order-summary">' +
+      '<div class="order-summary-title">Récapitulatif</div>' +
+      summaryLines +
+      '<div class="order-total-line"><span>Total</span><span>' + (sub + 7) + ' TND</span></div>' +
+    '</div>' +
+    '<button class="submit-btn" id="submitOrderBtn" onclick="submitOrder()">Confirmer 🎁</button>' +
+    '<span class="cancel-lnk" onclick="closeModal()">← Retour</span>';
+  document.getElementById('modalOverlay').classList.add('show');
+}
+
+async function submitOrder() {
+  var fn = document.getElementById('fn').value.trim();
+  var ln = document.getElementById('ln').value.trim();
+  var ph = document.getElementById('ph').value.trim();
+  var ad = document.getElementById('ad').value.trim();
+  var ci = document.getElementById('ci').value.trim();
+  var zp = document.getElementById('zp').value.trim();
+  var nt = document.getElementById('nt').value.trim();
+  if (!fn || !ph || !ad) { showToast('Veuillez remplir les champs obligatoires'); return; }
+  var sub = cart.reduce(function(s,x){ return s + x.price * x.qty; }, 0);
+  var btn = document.getElementById('submitOrderBtn');
+  btn.disabled = true; btn.textContent = 'Envoi...';
+  try {
+    var res  = await fetch(API + 'submit_order.php', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ firstName:fn, lastName:ln, phone:ph, address:ad, city:ci, zip:zp, note:nt,
+        items: cart.map(function(i){ return { id:i.id, name:i.name, price:i.price, qty:i.qty, img:i.img }; }),
+        subtotal: sub, total: sub + 7 })
+    });
+    var data = await res.json();
+    if (data.success) {
+      document.getElementById('modalBox').innerHTML =
+        '<div class="success-wrap"><div style="font-size:60px;margin-bottom:1rem">🌸</div>' +
+        '<div class="success-h">Commande confirmée ! 🎁</div>' +
+        '<p class="success-p">Merci <strong>' + fn + '</strong> !<br>Nous vous contacterons au <strong>' + ph + '</strong>.</p>' +
+        '<div class="order-id">Commande #' + data.order_ref + '</div><br>' +
+        '<button class="done-btn" onclick="closeModal();resetCart()">Continuer mes achats</button></div>';
+    } else { showToast(data.error || 'Erreur'); btn.disabled = false; btn.textContent = 'Confirmer 🎁'; }
+  } catch(e) { showToast('Erreur réseau.'); btn.disabled = false; btn.textContent = 'Confirmer 🎁'; }
+}
+
+function closeModal() { document.getElementById('modalOverlay').classList.remove('show'); }
+function resetCart()  { cart = []; updateBadge(); }
+
+// ── Toast ──
+var _tt;
+function showToast(msg) {
+  var t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  clearTimeout(_tt);
+  _tt = setTimeout(function(){ t.classList.remove('show'); }, 2500);
+}
+
+// ── Init ──
+init();
+</script>
+</body>
+</html>

@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JouJou Accessoires — Bijoux Acier Inoxydable</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --cream:#fdf8f2;--blush:#fceef4;--rose:#f0c4d4;--pink:#d4708a;--deep:#7a2840;
+  --mauve:#b5647a;--gold:#c9a060;--text:#2d1a22;--muted:#9a7080;--white:#fff;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Jost',sans-serif;background:var(--cream);color:var(--text);overflow-x:hidden}
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-track{background:var(--blush)}
+::-webkit-scrollbar-thumb{background:var(--rose);border-radius:3px}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:300;height:72px;display:flex;align-items:center;justify-content:space-between;padding:0 5%;background:rgba(253,248,242,.94);backdrop-filter:blur(14px);border-bottom:1px solid rgba(208,160,176,.18);transition:all .3s}
+.logo-wrap{display:flex;align-items:center;gap:10px;cursor:pointer}
+.logo-img{width:48px;height:48px;border-radius:50%;object-fit:cover;border:2px solid var(--rose)}
+.logo-name{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;color:var(--deep);letter-spacing:.3px}
+.logo-name span{color:var(--pink);font-style:italic}
+.nav-links{display:flex;gap:2.2rem}
+.nav-links a{font-size:12px;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);cursor:pointer;position:relative;transition:color .2s}
+.nav-links a::after{content:'';position:absolute;bottom:-3px;left:0;width:0;height:1px;background:var(--pink);transition:width .3s}
+.nav-links a:hover{color:var(--deep)}
+.nav-links a:hover::after{width:100%}
+.nav-right{display:flex;align-items:center;gap:12px}
+.cart-btn{background:var(--deep);color:white;border:none;padding:10px 22px;border-radius:28px;font-size:11px;cursor:pointer;font-family:'Jost',sans-serif;letter-spacing:1.2px;text-transform:uppercase;display:flex;align-items:center;gap:8px;transition:all .25s}
+.cart-btn:hover{background:var(--pink);transform:translateY(-1px)}
+.cart-n{background:var(--gold);color:white;border-radius:50%;width:18px;height:18px;font-size:10px;display:flex;align-items:center;justify-content:center;font-weight:600}
+
+.hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;position:relative;overflow:hidden;padding-top:72px}
+.hero-left{display:flex;flex-direction:column;justify-content:center;padding:80px 5% 80px 8%;position:relative;z-index:2}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:var(--mauve);margin-bottom:1.4rem}
+.eyebrow::before,.eyebrow::after{content:'';width:20px;height:1px;background:var(--rose)}
+.hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(44px,4.5vw,68px);line-height:1.08;color:var(--deep);margin-bottom:1.4rem;font-weight:500}
+.hero h1 em{color:var(--pink);font-style:italic;display:block}
+.hero-sub{font-size:14px;color:var(--muted);line-height:1.9;max-width:360px;margin-bottom:2.5rem;font-weight:300}
+.hero-btns{display:flex;gap:14px;flex-wrap:wrap}
+.btn-p{background:var(--deep);color:white;padding:13px 30px;border-radius:28px;font-size:12px;letter-spacing:1.2px;text-transform:uppercase;border:none;cursor:pointer;font-family:'Jost',sans-serif;transition:all .25s}
+.btn-p:hover{background:var(--pink);transform:translateY(-2px);box-shadow:0 8px 22px rgba(212,112,138,.3)}
+.btn-o{background:transparent;color:var(--deep);padding:13px 30px;border-radius:28px;font-size:12px;letter-spacing:1.2px;text-transform:uppercase;border:1.5px solid var(--rose);cursor:pointer;font-family:'Jost',sans-serif;transition:all .25s}
+.btn-o:hover{border-color:var(--pink);color:var(--pink)}
+.hero-stats{display:flex;gap:2rem;margin-top:3rem;padding-top:2rem;border-top:1px solid var(--rose)}
+.stat-val{font-family:'Cormorant Garamond',serif;font-size:30px;color:var(--deep);font-weight:600}
+.stat-lbl{font-size:10px;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase;margin-top:2px}
+.hero-right{position:relative;background:linear-gradient(135deg,#fce4ee 0%,#f9d0df 60%,#f0c0d0 100%);display:flex;align-items:center;justify-content:center;overflow:hidden}
+.hero-right::before{content:"\2736";position:absolute;top:15%;right:12%;font-size:80px;color:rgba(180,100,122,.1)}
+.hero-img-container{position:relative;z-index:1;display:grid;grid-template-columns:1fr 1fr;gap:14px;padding:40px;max-width:480px;width:100%}
+.hero-img-card{border-radius:16px;overflow:hidden;position:relative;box-shadow:0 12px 40px rgba(100,30,50,.15)}
+.hero-img-card img{width:100%;height:100%;object-fit:cover;display:block}
+.hero-img-card:nth-child(1){grid-column:1/2;grid-row:1/3;height:280px}
+.hero-img-card:nth-child(2){height:130px}
+.hero-img-card:nth-child(3){height:130px}
+.hero-badge{position:absolute;bottom:10px;left:10px;background:rgba(253,248,242,.92);backdrop-filter:blur(8px);padding:6px 12px;border-radius:20px;font-size:10px;color:var(--deep);font-weight:500}
+
+.strip{background:var(--deep);color:white;padding:14px 0;overflow:hidden;white-space:nowrap}
+.strip-inner{display:inline-flex;gap:60px;animation:scroll-strip 18s linear infinite}
+.strip-item{font-size:11px;letter-spacing:2px;text-transform:uppercase;display:flex;align-items:center;gap:10px}
+.strip-item::before{content:"\2736";color:var(--gold);font-size:9px}
+@keyframes scroll-strip{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+section{padding:80px 8%}
+.section-head{text-align:center;margin-bottom:3rem}
+.section-label{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--mauve);margin-bottom:10px}
+.section-title{font-family:'Cormorant Garamond',serif;font-size:clamp(32px,3.5vw,48px);color:var(--deep);font-weight:500;line-height:1.2}
+.section-title em{color:var(--pink);font-style:italic}
+.section-sep{width:50px;height:1.5px;background:var(--rose);margin:16px auto 0}
+
+.cats-section{background:white}
+.cats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.cat-card{position:relative;border-radius:20px;overflow:hidden;cursor:pointer;aspect-ratio:3/4}
+.cat-card img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
+.cat-card:hover img{transform:scale(1.06)}
+.cat-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(60,10,25,.75) 0%,transparent 55%);display:flex;flex-direction:column;justify-content:flex-end;padding:20px}
+.cat-name{font-family:'Cormorant Garamond',serif;font-size:22px;color:white;font-weight:500}
+.cat-count{font-size:11px;color:rgba(255,255,255,.7);letter-spacing:1px;margin-top:2px}
+.cat-arrow{position:absolute;top:14px;right:14px;background:rgba(255,255,255,.2);backdrop-filter:blur(4px);width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;font-size:14px;transition:all .3s;opacity:0}
+.cat-card:hover .cat-arrow{opacity:1;background:white;color:var(--deep)}
+
+.products-section{background:var(--cream)}
+.filter-tabs{display:flex;gap:10px;justify-content:center;margin-bottom:2.5rem;flex-wrap:wrap}
+.tab{background:white;border:1px solid var(--rose);color:var(--muted);padding:9px 22px;border-radius:24px;font-size:12px;letter-spacing:.8px;text-transform:uppercase;cursor:pointer;transition:all .2s;font-family:'Jost',sans-serif}
+.tab.active,.tab:hover{background:var(--deep);border-color:var(--deep);color:white}
+.products-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:24px}
+.p-card{background:white;border-radius:20px;overflow:hidden;cursor:pointer;transition:transform .3s,box-shadow .3s;border:1px solid rgba(208,160,176,.15)}
+.p-card:hover{transform:translateY(-6px);box-shadow:0 16px 40px rgba(122,40,64,.12)}
+.p-img{position:relative;height:200px;overflow:hidden;background:var(--blush)}
+.p-img img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
+.p-card:hover .p-img img{transform:scale(1.08)}
+.p-badge{position:absolute;top:12px;left:12px;padding:4px 10px;border-radius:12px;font-size:9px;letter-spacing:1.2px;text-transform:uppercase;font-weight:600}
+.badge-new{background:var(--deep);color:white}
+.badge-sale{background:var(--gold);color:white}
+.p-fav{position:absolute;top:12px;right:12px;background:white;border:none;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:14px;transition:all .2s;box-shadow:0 2px 8px rgba(0,0,0,.08)}
+.p-fav:hover{background:var(--blush);transform:scale(1.1)}
+.p-fav.liked{color:var(--pink)}
+.p-info{padding:16px}
+.p-cat{font-size:10px;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:5px}
+.p-name{font-family:'Cormorant Garamond',serif;font-size:17px;color:var(--text);font-weight:500;margin-bottom:10px;line-height:1.3}
+.p-footer{display:flex;align-items:center;justify-content:space-between}
+.p-price{font-family:'Cormorant Garamond',serif;font-size:19px;color:var(--deep);font-weight:600}
+.p-old{font-size:12px;color:var(--muted);text-decoration:line-through;margin-left:6px}
+.add-to-cart{background:var(--blush);border:1px solid var(--rose);color:var(--deep);width:34px;height:34px;border-radius:50%;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;line-height:1}
+.add-to-cart:hover{background:var(--deep);color:white;border-color:var(--deep);transform:scale(1.1)}
+
+.about-section{background:white;display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center}
+.about-imgs{position:relative;min-height:420px}
+.about-main-img{width:75%;border-radius:20px;overflow:hidden;box-shadow:0 20px 60px rgba(122,40,64,.15)}
+.about-main-img img{width:100%;display:block;aspect-ratio:3/4;object-fit:cover}
+.about-accent-img{position:absolute;right:0;bottom:-30px;width:52%;border-radius:16px;overflow:hidden;border:5px solid white;box-shadow:0 12px 40px rgba(122,40,64,.12)}
+.about-accent-img img{width:100%;display:block;aspect-ratio:1;object-fit:cover}
+.about-tag{display:inline-flex;align-items:center;gap:8px;background:var(--blush);color:var(--deep);padding:8px 18px;border-radius:20px;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:1.5rem;border:1px solid var(--rose)}
+.about-title{font-family:'Cormorant Garamond',serif;font-size:clamp(30px,3vw,44px);color:var(--deep);font-weight:500;line-height:1.2;margin-bottom:1.2rem}
+.about-title em{color:var(--pink);font-style:italic}
+.about-text{font-size:14px;color:var(--muted);line-height:1.9;font-weight:300;margin-bottom:1.2rem}
+.about-features{display:flex;flex-direction:column;gap:12px;margin-bottom:2rem}
+.feature-row{display:flex;align-items:center;gap:12px;font-size:13px;color:var(--text)}
+.feature-icon{width:34px;height:34px;background:var(--blush);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;border:1px solid var(--rose)}
+
+.testi-section{background:linear-gradient(135deg,var(--blush),var(--cream))}
+.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:3rem}
+.testi-card{background:white;border-radius:20px;padding:28px;border:1px solid rgba(208,160,176,.2);transition:transform .3s}
+.testi-card:hover{transform:translateY(-4px)}
+.stars{color:var(--gold);font-size:14px;letter-spacing:2px;margin-bottom:14px}
+.testi-text{font-family:'Cormorant Garamond',serif;font-size:16px;color:var(--text);line-height:1.7;font-style:italic;margin-bottom:16px}
+.testi-author{display:flex;align-items:center;gap:10px}
+.testi-avatar{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--rose),var(--pink));display:flex;align-items:center;justify-content:center;font-size:15px;color:white;font-family:'Cormorant Garamond',serif;font-weight:600;flex-shrink:0}
+.testi-name{font-size:13px;font-weight:500;color:var(--deep)}
+.testi-loc{font-size:11px;color:var(--muted)}
+
+/* reviews */
+.reviews-section{background:var(--cream);padding:80px 8%}
+.review-form-wrap{background:white;border-radius:20px;padding:28px;border:1px solid rgba(208,160,176,.2);margin-bottom:2.5rem;max-width:640px;margin-left:auto;margin-right:auto}
+.review-form-title{font-family:'Cormorant Garamond',serif;font-size:22px;color:var(--deep);margin-bottom:16px;font-weight:500}
+.star-picker{display:flex;gap:6px;margin-bottom:14px}
+.star-picker span{font-size:26px;cursor:pointer;color:#ddd;transition:color .15s;line-height:1}
+.star-picker span.on{color:var(--gold)}
+.rev-input{width:100%;border:1px solid var(--rose);border-radius:12px;padding:11px 14px;font-size:13px;font-family:'Jost',sans-serif;color:var(--text);outline:none;margin-bottom:12px;transition:border-color .2s;background:var(--cream);resize:vertical;min-height:80px}
+.rev-input:focus{border-color:var(--pink)}
+.rev-name-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.rev-submit{background:var(--deep);color:white;border:none;padding:11px 28px;border-radius:28px;font-size:12px;cursor:pointer;font-family:'Jost',sans-serif;letter-spacing:1px;text-transform:uppercase;transition:all .25s}
+.rev-submit:hover{background:var(--pink)}
+.reviews-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px}
+.rev-card{background:white;border-radius:18px;padding:22px;border:1px solid rgba(208,160,176,.18);transition:transform .3s}
+.rev-card:hover{transform:translateY(-3px)}
+.rev-stars{color:var(--gold);font-size:14px;letter-spacing:2px;margin-bottom:10px}
+.rev-text{font-family:'Cormorant Garamond',serif;font-size:15px;color:var(--text);line-height:1.7;font-style:italic;margin-bottom:12px}
+.rev-author{display:flex;align-items:center;gap:10px}
+.rev-avatar{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,var(--rose),var(--pink));display:flex;align-items:center;justify-content:center;font-size:13px;color:white;font-family:'Cormorant Garamond',serif;font-weight:600;flex-shrink:0}
+.rev-name{font-size:13px;font-weight:500;color:var(--deep)}
+.rev-city{font-size:11px;color:var(--muted)}
+.rev-date{font-size:10px;color:var(--muted);margin-left:auto}
+.rev-empty{text-align:center;color:var(--muted);padding:2rem;grid-column:1/-1;font-size:14px}
+.rev-loading{text-align:center;color:var(--muted);padding:2rem;grid-column:1/-1}
+
+footer{background:#1a0a10;color:rgba(255,255,255,.6);padding:60px 8% 30px}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem;margin-bottom:3rem}
+.footer-logo-name{color:white;margin-bottom:12px;display:block;font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;letter-spacing:.3px}
+.footer-logo-name span{color:var(--gold);font-style:italic}
+.footer-brand p{font-size:12px;line-height:1.8;max-width:220px;color:rgba(255,255,255,.45)}
+.footer-social{display:flex;gap:10px;margin-top:16px}
+.social-btn{width:34px;height:34px;background:rgba(255,255,255,.08);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;cursor:pointer;transition:all .2s;border:1px solid rgba(255,255,255,.1)}
+.social-btn:hover{background:var(--pink);border-color:var(--pink)}
+.footer-col h4{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.8);margin-bottom:16px;font-weight:500}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:8px}
+.footer-col ul li{font-size:12px;cursor:pointer;transition:color .2s}
+.footer-col ul li:hover{color:var(--rose)}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.08);padding-top:24px;display:flex;justify-content:space-between;align-items:center;font-size:11px}
+
+.cart-panel{position:fixed;right:-400px;top:0;width:380px;height:100vh;background:var(--white);z-index:400;transition:right .35s cubic-bezier(.4,0,.2,1);overflow-y:auto;border-left:1px solid rgba(208,160,176,.2);box-shadow:-16px 0 50px rgba(122,40,64,.08)}
+.cart-panel.open{right:0}
+.cart-head{padding:24px;border-bottom:1px solid var(--blush);display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;background:white;z-index:2}
+.cart-title{font-family:'Cormorant Garamond',serif;font-size:24px;color:var(--deep);font-weight:500}
+.close-btn{background:var(--blush);border:none;width:34px;height:34px;border-radius:50%;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;color:var(--muted);transition:all .2s}
+.close-btn:hover{background:var(--rose);color:var(--deep)}
+.cart-body{padding:16px 24px}
+.c-item{display:flex;gap:14px;padding:16px 0;border-bottom:1px solid var(--blush)}
+.c-item-img{width:66px;height:66px;border-radius:12px;overflow:hidden;flex-shrink:0;background:var(--blush)}
+.c-item-img img{width:100%;height:100%;object-fit:cover}
+.c-item-info{flex:1}
+.c-item-name{font-size:13px;font-weight:500;color:var(--text);margin-bottom:3px}
+.c-item-price{font-family:'Cormorant Garamond',serif;font-size:16px;color:var(--deep);font-weight:600}
+.c-qty{display:flex;align-items:center;gap:10px;margin-top:8px}
+.qty-btn{background:var(--blush);border:1px solid var(--rose);color:var(--muted);width:24px;height:24px;border-radius:50%;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;transition:all .2s}
+.qty-btn:hover{background:var(--deep);color:white;border-color:var(--deep)}
+.qty-n{font-size:13px;min-width:20px;text-align:center;font-weight:500}
+.c-remove{background:none;border:none;color:#d0a0b0;cursor:pointer;font-size:16px;align-self:flex-start;transition:color .2s;padding:0}
+.c-remove:hover{color:var(--pink)}
+.cart-foot{padding:16px 24px;border-top:1px solid var(--blush);position:sticky;bottom:0;background:white}
+.cart-row{display:flex;justify-content:space-between;font-size:13px;color:var(--muted);margin-bottom:8px}
+.cart-total-row{display:flex;justify-content:space-between;font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600;color:var(--deep);margin:14px 0}
+.checkout-btn{width:100%;background:var(--deep);color:white;border:none;padding:15px;border-radius:28px;font-size:12px;cursor:pointer;font-family:'Jost',sans-serif;letter-spacing:1.5px;text-transform:uppercase;transition:all .25s}
+.checkout-btn:hover{background:var(--pink)}
+.cart-empty{text-align:center;padding:4rem 0;color:var(--muted)}
+.cart-empty-icon{font-size:48px;margin-bottom:1rem;opacity:.5}
+.modal-overlay{position:fixed;inset:0;background:rgba(45,26,34,.5);z-index:500;display:none;align-items:center;justify-content:center;padding:1rem}
+.modal-overlay.show{display:flex}
+.modal{background:white;border-radius:24px;padding:2rem;width:100%;max-width:460px;max-height:90vh;overflow-y:auto}
+.modal-title{font-family:'Cormorant Garamond',serif;font-size:26px;color:var(--deep);margin-bottom:.3rem}
+.modal-sub{font-size:13px;color:var(--muted);margin-bottom:1.5rem}
+.form-label{font-size:11px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;display:block;margin-bottom:4px}
+.form-input{width:100%;border:1px solid var(--rose);border-radius:12px;padding:11px 14px;font-size:13px;font-family:'Jost',sans-serif;color:var(--text);outline:none;margin-bottom:14px;transition:border-color .2s;background:var(--cream)}
+.form-input:focus{border-color:var(--pink)}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.order-summary{background:var(--blush);border-radius:14px;padding:14px;margin-bottom:1rem;border:1px solid var(--rose)}
+.order-summary-title{font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--mauve);margin-bottom:10px}
+.order-line{display:flex;justify-content:space-between;font-size:13px;color:var(--text);margin-bottom:6px}
+.order-total-line{display:flex;justify-content:space-between;font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:600;color:var(--deep);border-top:1px solid var(--rose);padding-top:10px;margin-top:4px}
+.submit-btn{width:100%;background:var(--deep);color:white;border:none;padding:14px;border-radius:28px;font-size:12px;cursor:pointer;font-family:'Jost',sans-serif;letter-spacing:1.5px;text-transform:uppercase;transition:all .25s;margin-top:4px}
+.submit-btn:hover{background:var(--pink)}
+.cancel-lnk{display:block;text-align:center;margin-top:12px;font-size:12px;color:var(--muted);cursor:pointer}
+.cancel-lnk:hover{color:var(--pink)}
+.success-wrap{text-align:center;padding:1.5rem 0}
+.success-h{font-family:'Cormorant Garamond',serif;font-size:26px;color:var(--deep);margin-bottom:.5rem}
+.success-p{font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:1rem}
+.order-id{display:inline-block;background:var(--blush);color:var(--deep);border:1px solid var(--rose);border-radius:12px;padding:7px 18px;font-size:13px;font-weight:500}
+.done-btn{background:var(--deep);color:white;border:none;padding:12px 34px;border-radius:28px;font-size:12px;cursor:pointer;font-family:'Jost',sans-serif;letter-spacing:1px;text-transform:uppercase;margin-top:1.2rem;transition:all .25s}
+.done-btn:hover{background:var(--pink)}
+.backdrop{position:fixed;inset:0;background:rgba(45,26,34,.35);z-index:350;display:none}
+.backdrop.show{display:block}
+.toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--deep);color:white;padding:11px 24px;border-radius:28px;font-size:12px;z-index:600;opacity:0;transition:all .3s;pointer-events:none;white-space:nowrap}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+@media(max-width:900px){
+  .hero{grid-template-columns:1fr}.hero-right{display:none}
+  .cats-grid{grid-template-columns:1fr 1fr}
+  .about-section{grid-template-columns:1fr;padding:60px 6%}
+  .about-imgs{display:none}
+  .rev-name-row{grid-template-columns:1fr}
+  .testi-grid{grid-template-columns:1fr}
+  .footer-grid{grid-template-columns:1fr 1fr}
+  .nav-links{display:none}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo-wrap" onclick="scrollTo({top:0,behavior:'smooth'})">
+    <img class="logo-img" src="https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=48&q=80" alt="JouJou">
+    <div class="logo-name">JouJou5 <span>Accessoires</span></div> 
+  </div>
+  <div class="nav-links">
+    <a onclick="scrollTo({top:0,behavior:'smooth'})">Accueil</a>
+    <a onclick="document.getElementById('boutique').scrollIntoView({behavior:'smooth'})">Boutique</a>
+    <a onclick="document.getElementById('apropos').scrollIntoView({behavior:'smooth'})">A Propos</a>
+    <a onclick="document.getElementById('avis').scrollIntoView({behavior:'smooth'})">Avis</a>
+  </div>
+  <div class="nav-right">
+    <button class="cart-btn" onclick="openCart()">&#128717; Panier <span class="cart-n" id="cartN">0</span></button>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-left">
+    <div class="eyebrow">Nouvelle Collection 2025</div>
+    <h1>Bijoux en acier<br><em>inoxydable</em></h1>
+    <p class="hero-sub">Des pieces elegantes et durables, creees pour sublimer chaque femme. De l'or qui ne ternit jamais, a un prix accessible.</p>
+    <div class="hero-btns">
+      <button class="btn-p" onclick="document.getElementById('boutique').scrollIntoView({behavior:'smooth'})">Decouvrir la collection</button>
+      <button class="btn-o" onclick="document.getElementById('apropos').scrollIntoView({behavior:'smooth'})">Notre histoire</button>
+    </div>
+    <div class="hero-stats">
+      <div><div class="stat-val">200+</div><div class="stat-lbl">Clientes satisfaites</div></div>
+      <div><div class="stat-val">50+</div><div class="stat-lbl">References</div></div>
+      <div><div class="stat-val">100%</div><div class="stat-lbl">Acier inoxydable</div></div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-img-container">
+      <div class="hero-img-card">
+        <img src="https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=400&q=80" alt="Bague">
+        <div class="hero-badge">&#10022; Bestseller</div>
+      </div>
+      <div class="hero-img-card"><img src="https://images.unsplash.com/photo-1602173574767-37ac01994b2a?w=300&q=80" alt="Collier"></div>
+      <div class="hero-img-card"><img src="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=300&q=80" alt="Bracelet"></div>
+    </div>
+  </div>
+</section>
+
+<div class="strip">
+  <div class="strip-inner">
+    <span class="strip-item">Livraison partout en Tunisie</span><span class="strip-item">Acier inoxydable garanti</span>
+    <span class="strip-item">Ne ternit jamais</span><span class="strip-item">Paiement a la livraison</span>
+    <span class="strip-item">Livraison partout en Tunisie</span><span class="strip-item">Acier inoxydable garanti</span>
+    <span class="strip-item">Ne ternit jamais</span><span class="strip-item">Paiement a la livraison</span>
+  </div>
+</div>
+
+<section class="cats-section" style="padding:80px 8%">
+  <div class="section-head">
+    <div class="section-label">Nos categories</div>
+    <div class="section-title">Explorez notre <em>univers</em></div>
+    <div class="section-sep"></div>
+  </div>
+  <div class="cats-grid">
+    <div class="cat-card" onclick="filterProducts('bagues',null)"><img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=400&q=80" alt="Bagues"><div class="cat-overlay"><div class="cat-name">Bagues</div><div class="cat-count">12 references</div></div><div class="cat-arrow">&#8594;</div></div>
+    <div class="cat-card" onclick="filterProducts('colliers',null)"><img src="https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=400&q=80" alt="Colliers"><div class="cat-overlay"><div class="cat-name">Colliers</div><div class="cat-count">10 references</div></div><div class="cat-arrow">&#8594;</div></div>
+    <div class="cat-card" onclick="filterProducts('bracelets',null)"><img src="https://images.unsplash.com/photo-1573408301185-9519f94f5a37?w=400&q=80" alt="Bracelets"><div class="cat-overlay"><div class="cat-name">Bracelets</div><div class="cat-count">14 references</div></div><div class="cat-arrow">&#8594;</div></div>
+    <div class="cat-card" onclick="filterProducts('boucles',null)"><img src="https://images.unsplash.com/photo-1588444837495-c6cfeb53f32d?w=400&q=80" alt="Boucles"><div class="cat-overlay"><div class="cat-name">Boucles d'oreilles</div><div class="cat-count">16 references</div></div><div class="cat-arrow">&#8594;</div></div>
+  </div>
+</section>
+
+<section class="products-section" id="boutique">
+  <div class="section-head">
+    <div class="section-label">Notre boutique</div>
+    <div class="section-title">Pieces <em>coup de coeur</em></div>
+    <div class="section-sep"></div>
+  </div>
+  <div class="filter-tabs">
+    <button class="tab active" onclick="filterProducts('tous',this)">Tout</button>
+    <button class="tab" onclick="filterProducts('bagues',this)">Bagues</button>
+    <button class="tab" onclick="filterProducts('colliers',this)">Colliers</button>
+    <button class="tab" onclick="filterProducts('bracelets',this)">Bracelets</button>
+    <button class="tab" onclick="filterProducts('boucles',this)">Boucles d'oreilles</button>
+  </div>
+  <div class="products-grid" id="productsGrid"></div>
+</section>
+
+<section class="about-section" id="apropos">
+  <div class="about-imgs">
+    <div class="about-main-img"><img src="https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=500&q=80" alt="JouJou"></div>
+    <div class="about-accent-img"><img src="https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?w=300&q=80" alt="Bijoux"></div>
+  </div>
+  <div>
+    <div class="about-tag">&#10022; Notre histoire</div>
+    <h2 class="about-title">De la passion a la<br><em>belle piece</em></h2>
+    <p class="about-text">JouJou Accessoires est nee d'une passion simple : rendre chaque femme belle au quotidien. Nous selectionnons uniquement des bijoux en acier inoxydable — durables, hypoallergeniques et resistants au temps.</p>
+    <p class="about-text">Basee en Tunisie, nous livrons partout dans le pays avec amour et soin. Chaque commande est preparee avec attention pour vous offrir une experience unique.</p>
+    <div class="about-features">
+      <div class="feature-row"><div class="feature-icon">&#127807;</div>Acier inoxydable — ne ternit jamais</div>
+      <div class="feature-row"><div class="feature-icon">&#128666;</div>Livraison rapide partout en Tunisie</div>
+      <div class="feature-row"><div class="feature-icon">&#128157;</div>Paiement a la livraison disponible</div>
+      <div class="feature-row"><div class="feature-icon">&#10024;</div>Hypoallergenique — pour peaux sensibles</div>
+    </div>
+    <button class="btn-p" onclick="document.getElementById('boutique').scrollIntoView({behavior:'smooth'})">Voir la collection</button>
+  </div>
+</section>
+
+<section class="testi-section">
+  <div class="section-head">
+    <div class="section-label">Avis clientes</div>
+    <div class="section-title">Elles nous font <em>confiance</em></div>
+    <div class="section-sep"></div>
+  </div>
+  <div class="testi-grid">
+    <div class="testi-card"><div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><div class="testi-text">&#171; Les bijoux sont magnifiques ! La qualite est au rendez-vous, ma bague n'a pas change de couleur apres des semaines. &#187;</div><div class="testi-author"><div class="testi-avatar">S</div><div><div class="testi-name">Sana B.</div><div class="testi-loc">Tunis</div></div></div></div>
+    <div class="testi-card"><div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><div class="testi-text">&#171; Livraison rapide et emballage soigne. Le collier que j'ai commande est exactement comme sur les photos. &#187;</div><div class="testi-author"><div class="testi-avatar">R</div><div><div class="testi-name">Rim K.</div><div class="testi-loc">Sousse</div></div></div></div>
+    <div class="testi-card"><div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><div class="testi-text">&#171; JouJou c'est ma boutique preferee ! Les prix sont tres raisonnables pour une si belle qualite. &#187;</div><div class="testi-author"><div class="testi-avatar">M</div><div><div class="testi-name">Mariem A.</div><div class="testi-loc">Sfax</div></div></div></div>
+  </div>
+</section>
+
+<section class="reviews-section" id="avis">
+  <div class="section-head">
+    <div class="section-label">Avis clients</div>
+    <div class="section-title">Partagez votre <em>experience</em></div>
+    <div class="section-sep"></div>
+  </div>
+
+  <div class="review-form-wrap">
+    <div class="review-form-title">&#9997; Laisser un avis</div>
+    <div class="star-picker" id="starPicker">
+      <span onclick="setRating(1)">&#9733;</span>
+      <span onclick="setRating(2)">&#9733;</span>
+      <span onclick="setRating(3)">&#9733;</span>
+      <span onclick="setRating(4)">&#9733;</span>
+      <span onclick="setRating(5)">&#9733;</span>
+    </div>
+    <div class="rev-name-row">
+      <input class="rev-input" style="min-height:unset" id="revFirstName" placeholder="Prenom *" type="text">
+      <input class="rev-input" style="min-height:unset" id="revCity" placeholder="Ville (optionnel)" type="text">
+    </div>
+    <textarea class="rev-input" id="revText" placeholder="Votre avis... *"></textarea>
+    <button class="rev-submit" onclick="submitReview()">Publier l'avis</button>
+  </div>
+
+  <div class="reviews-list" id="reviewsList">
+    <div class="rev-loading">Chargement des avis...</div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <span class="footer-logo-name">JouJou <span>Accessoires</span></span>
+      <p>Bijoux en acier inoxydable — elegants, durables, accessibles.</p>
+      <div class="footer-social"><div class="social-btn">f</div><div class="social-btn">&#128247;</div><div class="social-btn">&#128172;</div></div>
+    </div>
+    <div class="footer-col"><h4>Boutique</h4><ul><li onclick="filterProducts('bagues',null)">Bagues</li><li onclick="filterProducts('colliers',null)">Colliers</li><li onclick="filterProducts('bracelets',null)">Bracelets</li><li onclick="filterProducts('boucles',null)">Boucles</li></ul></div>
+    <div class="footer-col"><h4>Informations</h4><ul><li onclick="document.getElementById('apropos').scrollIntoView({behavior:'smooth'})">&#9733; Acier inoxydable — ne ternit jamais</li><li>&#128666; Livraison 7 TND partout en Tunisie</li><li>&#128157; Paiement a la livraison</li><li>&#10024; Hypoallergenique, peaux sensibles</li></ul></div>
+    <div class="footer-col"><h4>Contact</h4><ul><li>&#128222; +216 XX XXX XXX</li><li>&#128140; <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="056f6a706f6a70456068646c692b666a68">[email&#160;protected]</a></li><li>&#128205; Tunis, Tunisie</li></ul></div>
+  </div>
+  <div class="footer-bottom"><span>&#169; 2025 JouJou Accessoires</span><span>Fait avec &#127800; en Tunisie</span></div>
+</footer>
+
+<div class="backdrop" id="backdrop" onclick="closeCart()"></div>
+<div class="cart-panel" id="cartPanel">
+  <div class="cart-head"><div class="cart-title">Mon Panier</div><button class="close-btn" onclick="closeCart()">&#10005;</button></div>
+  <div class="cart-body" id="cartBody"></div>
+  <div class="cart-foot" id="cartFoot"></div>
+</div>
+<div class="modal-overlay" id="modalOverlay"><div class="modal" id="modalBox"></div></div>
+<div class="toast" id="toast"></div>
+
+<script>
+// ═══════════════════════════════════════════════
+//  JouJou Accessoires — Frontend (PHP/MySQL version)
+//  All data now comes from the real backend API
+// ═══════════════════════════════════════════════
+
+var API = 'api/';  // relative path to api folder
+
+var products = [];
+var cart = [];
+var favorites = new Set();
+var currentFilter = 'tous';
+
+// ── Load products from server on page load ──
+async function initStore() {
+  try {
+    var res  = await fetch(API + 'get_products.php');
+    var data = await res.json();
+    if (data.success) {
+      products = data.products;
+      renderProducts();
+    }
+  } catch(e) {
+    console.error('Erreur chargement produits', e);
+  }
+}
+
+function renderProducts() {
+  var grid     = document.getElementById('productsGrid');
+  var filtered = currentFilter === 'tous'
+    ? products
+    : products.filter(function(p){ return p.cat === currentFilter; });
+  if (!filtered.length) {
+    grid.innerHTML = '<div style="text-align:center;padding:3rem;color:var(--muted);grid-column:1/-1">Aucun produit.</div>';
+    return;
+  }
+  grid.innerHTML = filtered.map(function(p) {
+    return '<div class="p-card" onclick="window.location.href=\'product.html?id='+p.id+'\'">' +
+      '<div class="p-img"><img src="' + p.img + '" alt="' + p.name + '" loading="lazy">' +
+      (p.isNew ? '<span class="p-badge badge-new">Nouveau</span>' : '') +
+      (p.old   ? '<span class="p-badge badge-sale">Promo</span>'  : '') +
+      '<button class="p-fav' + (favorites.has(p.id) ? ' liked' : '') + '" onclick="event.stopPropagation();toggleFav(' + p.id + ',this)">&#9825;</button>' +
+      '</div>' +
+      '<div class="p-info">' +
+        '<div class="p-cat">'  + p.cat  + '</div>' +
+        '<div class="p-name">' + p.name + '</div>' +
+        '<div class="p-footer">' +
+          '<div style="display:flex;align-items:baseline;gap:4px">' +
+            '<div class="p-price">' + p.price + ' TND</div>' +
+            (p.old ? '<div class="p-old">' + p.old + ' TND</div>' : '') +
+          '</div>' +
+          '<button class="add-to-cart" onclick="event.stopPropagation();addToCart(' + p.id + ')">+</button>' +
+        '</div>' +
+      '</div></div>';
+  }).join('');
+}
+
+function filterProducts(cat, el) {
+  currentFilter = cat;
+  if (el) {
+    document.querySelectorAll('.tab').forEach(function(t){ t.classList.remove('active'); });
+    el.classList.add('active');
+  }
+  document.getElementById('boutique').scrollIntoView({ behavior: 'smooth' });
+  renderProducts();
+}
+
+function toggleFav(id, btn) {
+  if (favorites.has(id)) { favorites.delete(id); btn.classList.remove('liked'); }
+  else                   { favorites.add(id);    btn.classList.add('liked');    showToast('Ajouté aux favoris'); }
+}
+
+// ── Cart ──
+function addToCart(id) {
+  var p  = products.find(function(x){ return x.id === id; });
+  if (!p) return;
+  var ex = cart.find(function(x){ return x.id === id; });
+  if (ex) ex.qty++;
+  else    cart.push(Object.assign({}, p, { qty: 1 }));
+  updateBadge();
+  renderCartBody();
+  showToast(p.name + ' ajouté au panier');
+}
+
+function updateBadge() {
+  document.getElementById('cartN').textContent = cart.reduce(function(s,x){ return s + x.qty; }, 0);
+}
+
+function renderCartBody() {
+  var body = document.getElementById('cartBody');
+  var foot = document.getElementById('cartFoot');
+  if (!cart.length) {
+    body.innerHTML = '<div class="cart-empty"><div class="cart-empty-icon">&#128717;</div><p style="font-size:14px;color:var(--muted)">Votre panier est vide</p></div>';
+    foot.innerHTML = '';
+    return;
+  }
+  body.innerHTML = cart.map(function(item) {
+    return '<div class="c-item">' +
+      '<div class="c-item-img"><img src="' + item.img + '" alt="' + item.name + '"></div>' +
+      '<div class="c-item-info">' +
+        '<div class="c-item-name">'  + item.name  + '</div>' +
+        '<div class="c-item-price">' + item.price + ' TND</div>' +
+        '<div class="c-qty">' +
+          '<button class="qty-btn" onclick="changeQty(' + item.id + ',-1)">&#8722;</button>' +
+          '<span class="qty-n">' + item.qty + '</span>' +
+          '<button class="qty-btn" onclick="changeQty(' + item.id + ',1)">+</button>' +
+        '</div>' +
+      '</div>' +
+      '<button class="c-remove" onclick="removeFromCart(' + item.id + ')">&#10005;</button>' +
+      '</div>';
+  }).join('');
+  var sub = cart.reduce(function(s,x){ return s + x.price * x.qty; }, 0);
+  foot.innerHTML =
+    '<div class="cart-row"><span>Sous-total</span><span>' + sub + ' TND</span></div>' +
+    '<div class="cart-row"><span>Livraison</span><span>7 TND</span></div>' +
+    '<div class="cart-total-row"><span>Total</span><span>' + (sub + 7) + ' TND</span></div>' +
+    '<button class="checkout-btn" onclick="openOrderModal()">Commander maintenant &#8594;</button>';
+}
+
+function changeQty(id, d) {
+  var item = cart.find(function(x){ return x.id === id; });
+  if (!item) return;
+  item.qty += d;
+  if (item.qty <= 0) cart = cart.filter(function(x){ return x.id !== id; });
+  updateBadge();
+  renderCartBody();
+}
+
+function removeFromCart(id) {
+  cart = cart.filter(function(x){ return x.id !== id; });
+  updateBadge();
+  renderCartBody();
+}
+
+function openCart()  { renderCartBody(); document.getElementById('cartPanel').classList.add('open'); document.getElementById('backdrop').classList.add('show'); }
+function closeCart() { document.getElementById('cartPanel').classList.remove('open'); document.getElementById('backdrop').classList.remove('show'); }
+
+// ── Order modal ──
+function openOrderModal() {
+  closeCart();
+  var sub = cart.reduce(function(s,x){ return s + x.price * x.qty; }, 0);
+  var summaryLines = cart.map(function(i){
+    return '<div class="order-line"><span>' + i.name + ' x' + i.qty + '</span><span>' + (i.price * i.qty) + ' TND</span></div>';
+  }).join('');
+  document.getElementById('modalBox').innerHTML =
+    '<div class="modal-title">Finaliser la commande</div>' +
+    '<div class="modal-sub">Remplissez vos informations &#127800;</div>' +
+    '<div class="form-row">' +
+      '<div><label class="form-label">Prénom *</label><input class="form-input" id="fn" placeholder="Votre prénom"></div>' +
+      '<div><label class="form-label">Nom</label><input class="form-input" id="ln" placeholder="Votre nom"></div>' +
+    '</div>' +
+    '<label class="form-label">Téléphone *</label><input class="form-input" id="ph" type="tel" placeholder="+216 XX XXX XXX">' +
+    '<label class="form-label">Adresse *</label><input class="form-input" id="ad" placeholder="Rue, quartier...">' +
+    '<div class="form-row">' +
+      '<div><label class="form-label">Ville</label><input class="form-input" id="ci" placeholder="Tunis"></div>' +
+      '<div><label class="form-label">Code postal</label><input class="form-input" id="zp" placeholder="1000"></div>' +
+    '</div>' +
+    '<label class="form-label">Note (optionnel)</label><input class="form-input" id="nt" placeholder="Instructions...">' +
+    '<div class="order-summary">' +
+      '<div class="order-summary-title">Récapitulatif</div>' +
+      summaryLines +
+      '<div class="order-total-line"><span>Total</span><span>' + (sub + 7) + ' TND</span></div>' +
+    '</div>' +
+    '<button class="submit-btn" id="submitOrderBtn" onclick="submitOrder()">Confirmer &#127872;</button>' +
+    '<span class="cancel-lnk" onclick="closeModal()">&#8592; Retour</span>';
+  document.getElementById('modalOverlay').classList.add('show');
+}
+
+async function submitOrder() {
+  var fn = document.getElementById('fn').value.trim();
+  var ln = document.getElementById('ln').value.trim();
+  var ph = document.getElementById('ph').value.trim();
+  var ad = document.getElementById('ad').value.trim();
+  var ci = document.getElementById('ci').value.trim();
+  var zp = document.getElementById('zp').value.trim();
+  var nt = document.getElementById('nt').value.trim();
+
+  if (!fn || !ph || !ad) { showToast('Veuillez remplir les champs obligatoires'); return; }
+
+  var sub = cart.reduce(function(s,x){ return s + x.price * x.qty; }, 0);
+  var btn = document.getElementById('submitOrderBtn');
+  btn.disabled = true;
+  btn.textContent = 'Envoi en cours...';
+
+  try {
+    var res  = await fetch(API + 'submit_order.php', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        firstName: fn, lastName: ln,
+        phone: ph, address: ad, city: ci, zip: zp, note: nt,
+        items: cart.map(function(i){ return { id: i.id, name: i.name, price: i.price, qty: i.qty, img: i.img }; }),
+        subtotal: sub,
+        total: sub + 7
+      })
+    });
+    var data = await res.json();
+    if (data.success) {
+      document.getElementById('modalBox').innerHTML =
+        '<div class="success-wrap">' +
+          '<div style="font-size:60px;margin-bottom:1rem">&#127800;</div>' +
+          '<div class="success-h">Commande confirmée ! &#127872;</div>' +
+          '<p class="success-p">Merci <strong>' + fn + '</strong> !<br>Nous vous contacterons au <strong>' + ph + '</strong>.</p>' +
+          '<div class="order-id">Commande #' + data.order_ref + '</div><br>' +
+          '<button class="done-btn" onclick="closeModal();resetCart()">Continuer mes achats</button>' +
+        '</div>';
+    } else {
+      showToast(data.error || 'Erreur lors de la commande');
+      btn.disabled = false;
+      btn.textContent = 'Confirmer 🎁';
+    }
+  } catch(e) {
+    showToast('Erreur réseau. Réessayez.');
+    btn.disabled = false;
+    btn.textContent = 'Confirmer 🎁';
+  }
+}
+
+function closeModal()  { document.getElementById('modalOverlay').classList.remove('show'); }
+function resetCart()   { cart = []; updateBadge(); }
+
+// ── Reviews ──
+var selectedRating = 0;
+
+function setRating(n) {
+  selectedRating = n;
+  var stars = document.querySelectorAll('#starPicker span');
+  stars.forEach(function(s, i){ s.classList.toggle('on', i < n); });
+}
+
+async function loadReviews() {
+  try {
+    var res  = await fetch(API + 'get_reviews.php');
+    var data = await res.json();
+    var list = document.getElementById('reviewsList');
+    if (!data.success || !data.reviews.length) {
+      list.innerHTML = '<div class="rev-empty">Soyez la premiere a laisser un avis ! &#127801;</div>';
+      return;
+    }
+    list.innerHTML = data.reviews.map(function(r) {
+      var stars = '&#9733;'.repeat(r.rating) + '<span style="color:#ddd">' + '&#9733;'.repeat(5 - r.rating) + '</span>';
+      var initials = r.first_name.charAt(0).toUpperCase();
+      return '<div class="rev-card">' +
+        '<div class="rev-stars">' + stars + '</div>' +
+        '<div class="rev-text">&#171; ' + r.comment + ' &#187;</div>' +
+        '<div class="rev-author">' +
+          '<div class="rev-avatar">' + initials + '</div>' +
+          '<div><div class="rev-name">' + r.first_name + '</div>' +
+          (r.city ? '<div class="rev-city">' + r.city + '</div>' : '') + '</div>' +
+          '<div class="rev-date">' + r.date_display + '</div>' +
+        '</div></div>';
+    }).join('');
+  } catch(e) {
+    document.getElementById('reviewsList').innerHTML = '<div class="rev-empty">Impossible de charger les avis.</div>';
+  }
+}
+
+async function submitReview() {
+  var fn   = document.getElementById('revFirstName').value.trim();
+  var city = document.getElementById('revCity').value.trim();
+  var txt  = document.getElementById('revText').value.trim();
+  if (!fn)              { showToast('Entrez votre prenom'); return; }
+  if (!selectedRating)  { showToast('Choisissez une note'); return; }
+  if (!txt)             { showToast('Ecrivez votre avis'); return; }
+  var btn = document.querySelector('.rev-submit');
+  btn.disabled = true; btn.textContent = '...';
+  try {
+    var res  = await fetch(API + 'save_review.php', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ first_name: fn, city: city, rating: selectedRating, comment: txt })
+    });
+    var data = await res.json();
+    if (data.success) {
+      showToast('Merci pour votre avis ! &#127801;');
+      document.getElementById('revFirstName').value = '';
+      document.getElementById('revCity').value = '';
+      document.getElementById('revText').value = '';
+      setRating(0);
+      loadReviews();
+    } else {
+      showToast(data.error || 'Erreur');
+    }
+  } catch(e) { showToast('Erreur reseau.'); }
+  btn.disabled = false; btn.textContent = "Publier l'avis";
+}
+
+// ── Toast ──
+var _tt;
+function showToast(msg) {
+  var t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(_tt);
+  _tt = setTimeout(function(){ t.classList.remove('show'); }, 2500);
+}
+
+// ── Init ──
+initStore();
+loadReviews();
+</script>
+</body>
+</html>
