@@ -253,10 +253,76 @@ body{font-family:'Jost',sans-serif;background:var(--bg);color:var(--text);min-he
 .toast{position:fixed;bottom:28px;right:28px;background:var(--sidebar);color:white;padding:12px 20px;border-radius:12px;font-size:13px;z-index:300;opacity:0;transform:translateY(10px);transition:all .3s;pointer-events:none;border-left:3px solid var(--gold);box-shadow:0 8px 24px rgba(45,26,34,.3)}
 .toast.show{opacity:1;transform:translateY(0)}
 
+/* ── Mobile sidebar toggle ── */
+.adm-menu-btn{display:none;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);color:white;width:36px;height:36px;border-radius:10px;cursor:pointer;font-size:18px;align-items:center;justify-content:center;flex-shrink:0}
+.adm-sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(45,26,34,.5);z-index:98;backdrop-filter:blur(2px)}
+.adm-sidebar-overlay.show{display:block}
+
 @media(max-width:900px){
+  /* Stats */
   .stat-cards{grid-template-columns:1fr 1fr}
   .dash-grid{grid-template-columns:1fr}
-  .adm-sidebar{display:none}
+
+  /* Sidebar becomes a drawer */
+  .adm-menu-btn{display:flex}
+  .adm-sidebar{
+    position:fixed;left:-230px;top:0;height:100vh;z-index:99;
+    transition:left .3s cubic-bezier(.4,0,.2,1);
+    box-shadow:4px 0 24px rgba(45,26,34,.3);
+  }
+  .adm-sidebar.open{left:0}
+
+  /* Layout */
+  .adm-layout{height:calc(100vh - 64px)}
+  .adm-content{padding:1.2rem}
+
+  /* Top bar */
+  .adm-brand-badge{display:none}
+  .adm-store-btn span{display:none}
+
+  /* Tables scroll horizontally */
+  .adm-table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .adm-table{min-width:600px}
+
+  /* Product grid */
+  .prod-grid{grid-template-columns:repeat(auto-fill,minmax(160px,1fr))}
+
+  /* Modal */
+  .modal-box{padding:1.4rem;border-radius:16px}
+  .form-2col{grid-template-columns:1fr}
+  .detail-info-grid{grid-template-columns:1fr}
+
+  /* Toolbar */
+  .adm-toolbar{flex-wrap:wrap}
+  .table-toolbar{flex-direction:column;align-items:flex-start;gap:10px}
+  .search-box{width:100%}
+}
+
+@media(max-width:480px){
+  /* Stats */
+  .stat-cards{grid-template-columns:1fr 1fr;gap:10px}
+  .stat-card{padding:14px}
+  .stat-card-val{font-size:26px}
+
+  /* Top bar */
+  .adm-top{padding:0 1rem}
+  .adm-brand-name{font-size:16px}
+  .adm-logout-btn{padding:7px 10px;font-size:11px}
+  .adm-store-btn{padding:7px 10px;font-size:11px}
+
+  /* Content */
+  .adm-content{padding:1rem}
+  .adm-page-title{font-size:22px}
+
+  /* Modal full screen on small phones */
+  .modal-overlay{padding:0;align-items:flex-end}
+  .modal-box{border-radius:20px 20px 0 0;max-height:92vh;padding:1.4rem}
+  .modal-footer{flex-direction:column}
+  .btn-save,.btn-cancel{width:100%;text-align:center}
+
+  /* Product grid */
+  .prod-grid{grid-template-columns:1fr 1fr;gap:10px}
+  .prod-card-img{height:130px}
 }
 </style>
 </head>
@@ -303,6 +369,7 @@ body{font-family:'Jost',sans-serif;background:var(--bg);color:var(--text);min-he
   <!-- Top bar -->
   <div class="adm-top">
     <div class="adm-brand">
+      <button class="adm-menu-btn" onclick="toggleSidebar()">&#9776;</button>
       <div class="adm-brand-icon">&#128148;</div>
       <div class="adm-brand-name">JouJou <span>Admin</span></div>
       <div class="adm-brand-badge">Dashboard</div>
@@ -313,9 +380,10 @@ body{font-family:'Jost',sans-serif;background:var(--bg);color:var(--text);min-he
     </div>
   </div>
 
+  <div class="adm-sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
   <div class="adm-layout">
     <!-- Sidebar -->
-    <div class="adm-sidebar">
+    <div class="adm-sidebar" id="admSidebar">
       <div class="adm-sidebar-section">Principal</div>
       <div class="adm-nav-item active" onclick="admNav('dashboard',this)" id="nav-dashboard">
         <span class="adm-nav-icon">&#128200;</span> Tableau de bord
@@ -498,7 +566,18 @@ body{font-family:'Jost',sans-serif;background:var(--bg);color:var(--text);min-he
 //  JouJou — Admin Panel (PHP/MySQL version)
 // ═══════════════════════════════════════════════
 
-var API = 'https://joujou-production.up.railway.app/api/';
+var API = 'api/';
+
+function toggleSidebar() {
+  var s = document.getElementById('admSidebar');
+  var o = document.getElementById('sidebarOverlay');
+  s.classList.toggle('open');
+  o.classList.toggle('show');
+}
+function closeSidebar() {
+  document.getElementById('admSidebar').classList.remove('open');
+  document.getElementById('sidebarOverlay').classList.remove('show');
+}
 var products = [];
 var orders   = [];
 var editingId = null;
@@ -611,6 +690,7 @@ function admNav(page, el) {
   if (page === 'orders')    { loadOrders().then(renderOrdersTable); }
   if (page === 'products')  { loadProducts().then(renderProducts); }
   if (page === 'dashboard') renderDashboard();
+  closeSidebar();
 }
 
 function updatePendingBadge() {

@@ -1,25 +1,17 @@
 <?php
-// ═══════════════════════════════════════════════
-//  JouJou — Database Configuration
-//  Edit this file with your hosting credentials
-// ═══════════════════════════════════════════════
-
 define('DB_HOST', 'mysql.railway.internal');
 define('DB_NAME', 'railway');
 define('DB_USER', 'root');
 define('DB_PASS', 'TYhyOZjdgwvCmYcuJYOFcBdzcDBMDmTz');
 define('DB_CHARSET', 'utf8mb4');
 
-// Admin email for order notifications
-define('ADMIN_EMAIL', 'azizklif2004@gmail.com');  // ← Change to your email
+define('ADMIN_EMAIL', 'azizklif2004@gmail.com');
 define('STORE_NAME',  'JouJou Accessoires');
 
-// Upload settings
 define('UPLOAD_DIR',      __DIR__ . '/../uploads/');
-define('UPLOAD_URL_BASE', '/uploads/');   // URL path to uploads folder
-define('MAX_UPLOAD_SIZE', 5 * 1024 * 1024); // 5 MB
+define('UPLOAD_URL_BASE', '/uploads/');
+define('MAX_UPLOAD_SIZE', 5 * 1024 * 1024);
 
-// ─── PDO connection (used by all API files) ───
 function getDB(): PDO {
     static $pdo = null;
     if ($pdo === null) {
@@ -39,7 +31,6 @@ function getDB(): PDO {
     return $pdo;
 }
 
-// ─── CORS & JSON headers ───
 function setHeaders(): void {
     header('Content-Type: application/json; charset=utf-8');
     header('Access-Control-Allow-Origin: *');
@@ -48,16 +39,15 @@ function setHeaders(): void {
     if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') exit(0);
 }
 
-// ─── Session-based admin auth ───
 function requireAdmin(): void {
-    session_start();
-    if (empty($_SESSION['jj_admin'])) {
+    $token = $_SERVER['HTTP_X_ADMIN_TOKEN'] ?? '';
+    $valid = ($token === hash('sha256', 'JouJou_Secret_2025_' . date('Y-m-d')));
+    if (!$valid) {
         http_response_code(401);
         die(json_encode(['success' => false, 'error' => 'Non autorise']));
     }
 }
 
-// ─── JSON response helpers ───
 function ok(array $data = []): void {
     echo json_encode(array_merge(['success' => true], $data));
     exit;
