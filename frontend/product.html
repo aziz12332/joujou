@@ -323,8 +323,10 @@ function showNotFound() {
 function renderProduct(p) {
   var saving = p.old ? Math.round((1 - p.price / p.old) * 100) : 0;
 
-  // Multiple "thumbnails" — just repeat the image for demo (in real use, add more img fields)
-  var thumbs = [p.img, p.img, p.img].map(function(src, i) {
+  var imgList = [p.img];
+  if (p.img2) imgList.push(p.img2);
+  if (p.img3) imgList.push(p.img3);
+  var thumbs = imgList.map(function(src, i) {
     return '<div class="thumb' + (i === 0 ? ' active' : '') + '" onclick="switchImg(this, \'' + src + '\')">' +
       '<img src="' + src + '" alt="">' +
       '</div>';

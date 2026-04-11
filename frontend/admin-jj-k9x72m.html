@@ -253,76 +253,10 @@ body{font-family:'Jost',sans-serif;background:var(--bg);color:var(--text);min-he
 .toast{position:fixed;bottom:28px;right:28px;background:var(--sidebar);color:white;padding:12px 20px;border-radius:12px;font-size:13px;z-index:300;opacity:0;transform:translateY(10px);transition:all .3s;pointer-events:none;border-left:3px solid var(--gold);box-shadow:0 8px 24px rgba(45,26,34,.3)}
 .toast.show{opacity:1;transform:translateY(0)}
 
-/* ── Mobile sidebar toggle ── */
-.adm-menu-btn{display:none;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);color:white;width:36px;height:36px;border-radius:10px;cursor:pointer;font-size:18px;align-items:center;justify-content:center;flex-shrink:0}
-.adm-sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(45,26,34,.5);z-index:98;backdrop-filter:blur(2px)}
-.adm-sidebar-overlay.show{display:block}
-
 @media(max-width:900px){
-  /* Stats */
   .stat-cards{grid-template-columns:1fr 1fr}
   .dash-grid{grid-template-columns:1fr}
-
-  /* Sidebar becomes a drawer */
-  .adm-menu-btn{display:flex}
-  .adm-sidebar{
-    position:fixed;left:-230px;top:0;height:100vh;z-index:99;
-    transition:left .3s cubic-bezier(.4,0,.2,1);
-    box-shadow:4px 0 24px rgba(45,26,34,.3);
-  }
-  .adm-sidebar.open{left:0}
-
-  /* Layout */
-  .adm-layout{height:calc(100vh - 64px)}
-  .adm-content{padding:1.2rem}
-
-  /* Top bar */
-  .adm-brand-badge{display:none}
-  .adm-store-btn span{display:none}
-
-  /* Tables scroll horizontally */
-  .adm-table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
-  .adm-table{min-width:600px}
-
-  /* Product grid */
-  .prod-grid{grid-template-columns:repeat(auto-fill,minmax(160px,1fr))}
-
-  /* Modal */
-  .modal-box{padding:1.4rem;border-radius:16px}
-  .form-2col{grid-template-columns:1fr}
-  .detail-info-grid{grid-template-columns:1fr}
-
-  /* Toolbar */
-  .adm-toolbar{flex-wrap:wrap}
-  .table-toolbar{flex-direction:column;align-items:flex-start;gap:10px}
-  .search-box{width:100%}
-}
-
-@media(max-width:480px){
-  /* Stats */
-  .stat-cards{grid-template-columns:1fr 1fr;gap:10px}
-  .stat-card{padding:14px}
-  .stat-card-val{font-size:26px}
-
-  /* Top bar */
-  .adm-top{padding:0 1rem}
-  .adm-brand-name{font-size:16px}
-  .adm-logout-btn{padding:7px 10px;font-size:11px}
-  .adm-store-btn{padding:7px 10px;font-size:11px}
-
-  /* Content */
-  .adm-content{padding:1rem}
-  .adm-page-title{font-size:22px}
-
-  /* Modal full screen on small phones */
-  .modal-overlay{padding:0;align-items:flex-end}
-  .modal-box{border-radius:20px 20px 0 0;max-height:92vh;padding:1.4rem}
-  .modal-footer{flex-direction:column}
-  .btn-save,.btn-cancel{width:100%;text-align:center}
-
-  /* Product grid */
-  .prod-grid{grid-template-columns:1fr 1fr;gap:10px}
-  .prod-card-img{height:130px}
+  .adm-sidebar{display:none}
 }
 </style>
 </head>
@@ -369,7 +303,6 @@ body{font-family:'Jost',sans-serif;background:var(--bg);color:var(--text);min-he
   <!-- Top bar -->
   <div class="adm-top">
     <div class="adm-brand">
-      <button class="adm-menu-btn" onclick="toggleSidebar()">&#9776;</button>
       <div class="adm-brand-icon">&#128148;</div>
       <div class="adm-brand-name">JouJou <span>Admin</span></div>
       <div class="adm-brand-badge">Dashboard</div>
@@ -380,10 +313,9 @@ body{font-family:'Jost',sans-serif;background:var(--bg);color:var(--text);min-he
     </div>
   </div>
 
-  <div class="adm-sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
   <div class="adm-layout">
     <!-- Sidebar -->
-    <div class="adm-sidebar" id="admSidebar">
+    <div class="adm-sidebar">
       <div class="adm-sidebar-section">Principal</div>
       <div class="adm-nav-item active" onclick="admNav('dashboard',this)" id="nav-dashboard">
         <span class="adm-nav-icon">&#128200;</span> Tableau de bord
@@ -528,8 +460,16 @@ body{font-family:'Jost',sans-serif;background:var(--bg);color:var(--text);min-he
       </div>
     </div>
     <div class="form-group">
-      <label class="form-label">Image — URL</label>
+      <label class="form-label">Image 1 — URL (principale)</label>
       <input class="form-input" id="pf-img" placeholder="https://images.unsplash.com/..." oninput="previewImg()">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Image 2 — URL (optionnelle)</label>
+      <input class="form-input" id="pf-img2" placeholder="https://...">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Image 3 — URL (optionnelle)</label>
+      <input class="form-input" id="pf-img3" placeholder="https://...">
     </div>
     <div class="form-group">
       <label class="form-label">— ou — Uploader un fichier</label>
@@ -567,17 +507,6 @@ body{font-family:'Jost',sans-serif;background:var(--bg);color:var(--text);min-he
 // ═══════════════════════════════════════════════
 
 var API = 'https://joujou-production.up.railway.app/api/';
-
-function toggleSidebar() {
-  var s = document.getElementById('admSidebar');
-  var o = document.getElementById('sidebarOverlay');
-  s.classList.toggle('open');
-  o.classList.toggle('show');
-}
-function closeSidebar() {
-  document.getElementById('admSidebar').classList.remove('open');
-  document.getElementById('sidebarOverlay').classList.remove('show');
-}
 var products = [];
 var orders   = [];
 var editingId = null;
@@ -599,12 +528,12 @@ async function doLogin() {
     var res  = await fetch(API + 'login.php', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      headers: { 'X-Admin-Token': localStorage.getItem('jj_admin_token') || '' },
       body: JSON.stringify({ password: pwd })
     });
     var data = await res.json();
 
-    if (data.success) { if (data.token) localStorage.setItem('jj_admin_token', data.token);
+    if (data.success) {
+      if (data.token) localStorage.setItem('jj_admin_token', data.token);
       document.getElementById('loginScreen').style.animation = 'fadeOut .4s forwards';
       setTimeout(showApp, 400);
     } else {
@@ -632,16 +561,18 @@ async function doLogin() {
 }
 
 async function doLogout() {
-  await fetch(API + 'login.php?action=logout', { headers: { 'X-Admin-Token': localStorage.getItem('jj_admin_token') || '' } });
+  localStorage.removeItem('jj_admin_token');
   location.reload();
 }
 
 async function checkSession() {
   try {
-    var res  = await fetch(API + 'login.php?action=check', { headers: { 'X-Admin-Token': localStorage.getItem('jj_admin_token') || '' } });
+    var token = localStorage.getItem('jj_admin_token');
+    if (!token) { document.getElementById('loginScreen').classList.remove('hidden'); return; }
+    var res  = await fetch(API + 'login.php?action=check', { headers: { 'X-Admin-Token': token } });
     var data = await res.json();
     if (data.logged_in) showApp();
-    else document.getElementById('loginScreen').classList.remove('hidden');
+    else { localStorage.removeItem('jj_admin_token'); document.getElementById('loginScreen').classList.remove('hidden'); }
   } catch(e) {
     document.getElementById('loginScreen').classList.remove('hidden');
   }
@@ -690,7 +621,6 @@ function admNav(page, el) {
   if (page === 'orders')    { loadOrders().then(renderOrdersTable); }
   if (page === 'products')  { loadProducts().then(renderProducts); }
   if (page === 'dashboard') renderDashboard();
-  closeSidebar();
 }
 
 function updatePendingBadge() {
@@ -812,12 +742,11 @@ async function updateStatus(id, status) {
   try {
     var res  = await fetch(API + 'update_order.php', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      headers: { 'X-Admin-Token': localStorage.getItem('jj_admin_token') || '' },
+      headers: { 'Content-Type': 'application/json', 'X-Admin-Token': localStorage.getItem('jj_admin_token') || '' },
       body: JSON.stringify({ order_ref: id, status: status })
     });
     var data = await res.json();
-    if (data.success) { if (data.token) localStorage.setItem('jj_admin_token', data.token);
+    if (data.success) {
       var o = orders.find(function(x){ return x.id === id; });
       if (o) o.status = status;
       renderOrdersTable();
@@ -835,12 +764,11 @@ async function deleteOrder(id) {
   try {
     var res  = await fetch(API + 'delete_order.php', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      headers: { 'X-Admin-Token': localStorage.getItem('jj_admin_token') || '' },
+      headers: { 'Content-Type': 'application/json', 'X-Admin-Token': localStorage.getItem('jj_admin_token') || '' },
       body: JSON.stringify({ order_ref: id })
     });
     var data = await res.json();
-    if (data.success) { if (data.token) localStorage.setItem('jj_admin_token', data.token);
+    if (data.success) {
       orders = orders.filter(function(x){ return x.id !== id; });
       renderOrdersTable();
       renderDashboard();
@@ -898,6 +826,8 @@ function openProdModal(id) {
     document.getElementById('pf-price').value   = p.price;
     document.getElementById('pf-old').value     = p.old || '';
     document.getElementById('pf-img').value     = p.img;
+    document.getElementById('pf-img2').value    = p.img2 || '';
+    document.getElementById('pf-img3').value    = p.img3 || '';
     document.getElementById('pf-isnew').checked = !!p.isNew;
     // Show existing image preview
     var pw = document.getElementById('pf-preview-wrap');
@@ -909,6 +839,8 @@ function openProdModal(id) {
     document.getElementById('pf-price').value   = '';
     document.getElementById('pf-old').value     = '';
     document.getElementById('pf-img').value     = '';
+    document.getElementById('pf-img2').value    = '';
+    document.getElementById('pf-img3').value    = '';
     document.getElementById('pf-isnew').checked = false;
   }
   document.getElementById('prodModalOverlay').classList.add('show');
@@ -943,6 +875,8 @@ async function saveProduct() {
   var price    = document.getElementById('pf-price').value;
   var oldPrice = document.getElementById('pf-old').value;
   var imgUrl   = document.getElementById('pf-img').value.trim();
+  var img2Url  = document.getElementById('pf-img2').value.trim();
+  var img3Url  = document.getElementById('pf-img3').value.trim();
   var imgFile  = document.getElementById('pf-imgfile').files[0];
   var isNew    = document.getElementById('pf-isnew').checked;
 
@@ -962,6 +896,8 @@ async function saveProduct() {
     formData.append('price',     price);
     formData.append('old_price', oldPrice);
     formData.append('img_url',   imgUrl);
+    formData.append('img2_url',  img2Url);
+    formData.append('img3_url',  img3Url);
     formData.append('is_new',    isNew ? '1' : '0');
     if (imgFile) formData.append('img_file', imgFile);
 
@@ -971,7 +907,7 @@ async function saveProduct() {
       body: formData
     });
     var data = await res.json();
-    if (data.success) { if (data.token) localStorage.setItem('jj_admin_token', data.token);
+    if (data.success) {
       await loadProducts();
       renderProducts();
       renderDashboard();
@@ -993,12 +929,11 @@ async function deleteProd(id) {
   try {
     var res  = await fetch(API + 'delete_product.php', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      headers: { 'X-Admin-Token': localStorage.getItem('jj_admin_token') || '' },
+      headers: { 'Content-Type': 'application/json', 'X-Admin-Token': localStorage.getItem('jj_admin_token') || '' },
       body: JSON.stringify({ id: id })
     });
     var data = await res.json();
-    if (data.success) { if (data.token) localStorage.setItem('jj_admin_token', data.token);
+    if (data.success) {
       products = products.filter(function(x){ return x.id !== id; });
       renderProducts();
       renderDashboard();
