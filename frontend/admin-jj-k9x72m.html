@@ -599,12 +599,12 @@ async function doLogin() {
     var res  = await fetch(API + 'login.php', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      credentials: 'same-origin',
+      headers: { 'X-Admin-Token': localStorage.getItem('jj_admin_token') || '' },
       body: JSON.stringify({ password: pwd })
     });
     var data = await res.json();
 
-    if (data.success) {
+    if (data.success) { if (data.token) localStorage.setItem('jj_admin_token', data.token);
       document.getElementById('loginScreen').style.animation = 'fadeOut .4s forwards';
       setTimeout(showApp, 400);
     } else {
@@ -632,13 +632,13 @@ async function doLogin() {
 }
 
 async function doLogout() {
-  await fetch(API + 'login.php?action=logout', { credentials: 'same-origin' });
+  await fetch(API + 'login.php?action=logout', { headers: { 'X-Admin-Token': localStorage.getItem('jj_admin_token') || '' } });
   location.reload();
 }
 
 async function checkSession() {
   try {
-    var res  = await fetch(API + 'login.php?action=check', { credentials: 'same-origin' });
+    var res  = await fetch(API + 'login.php?action=check', { headers: { 'X-Admin-Token': localStorage.getItem('jj_admin_token') || '' } });
     var data = await res.json();
     if (data.logged_in) showApp();
     else document.getElementById('loginScreen').classList.remove('hidden');
@@ -667,7 +667,7 @@ async function refreshAll() {
 
 async function loadProducts() {
   try {
-    var res  = await fetch(API + 'get_products.php', { credentials: 'same-origin' });
+    var res  = await fetch(API + 'get_products.php', { headers: { 'X-Admin-Token': localStorage.getItem('jj_admin_token') || '' } });
     var data = await res.json();
     if (data.success) products = data.products;
   } catch(e) { console.error('loadProducts', e); }
@@ -675,7 +675,7 @@ async function loadProducts() {
 
 async function loadOrders() {
   try {
-    var res  = await fetch(API + 'get_orders.php', { credentials: 'same-origin' });
+    var res  = await fetch(API + 'get_orders.php', { headers: { 'X-Admin-Token': localStorage.getItem('jj_admin_token') || '' } });
     var data = await res.json();
     if (data.success) orders = data.orders;
   } catch(e) { console.error('loadOrders', e); }
@@ -813,11 +813,11 @@ async function updateStatus(id, status) {
     var res  = await fetch(API + 'update_order.php', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      credentials: 'same-origin',
+      headers: { 'X-Admin-Token': localStorage.getItem('jj_admin_token') || '' },
       body: JSON.stringify({ order_ref: id, status: status })
     });
     var data = await res.json();
-    if (data.success) {
+    if (data.success) { if (data.token) localStorage.setItem('jj_admin_token', data.token);
       var o = orders.find(function(x){ return x.id === id; });
       if (o) o.status = status;
       renderOrdersTable();
@@ -836,11 +836,11 @@ async function deleteOrder(id) {
     var res  = await fetch(API + 'delete_order.php', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      credentials: 'same-origin',
+      headers: { 'X-Admin-Token': localStorage.getItem('jj_admin_token') || '' },
       body: JSON.stringify({ order_ref: id })
     });
     var data = await res.json();
-    if (data.success) {
+    if (data.success) { if (data.token) localStorage.setItem('jj_admin_token', data.token);
       orders = orders.filter(function(x){ return x.id !== id; });
       renderOrdersTable();
       renderDashboard();
@@ -967,11 +967,11 @@ async function saveProduct() {
 
     var res  = await fetch(API + 'save_product.php', {
       method: 'POST',
-      credentials: 'same-origin',
+      headers: { 'X-Admin-Token': localStorage.getItem('jj_admin_token') || '' },
       body: formData
     });
     var data = await res.json();
-    if (data.success) {
+    if (data.success) { if (data.token) localStorage.setItem('jj_admin_token', data.token);
       await loadProducts();
       renderProducts();
       renderDashboard();
@@ -994,11 +994,11 @@ async function deleteProd(id) {
     var res  = await fetch(API + 'delete_product.php', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      credentials: 'same-origin',
+      headers: { 'X-Admin-Token': localStorage.getItem('jj_admin_token') || '' },
       body: JSON.stringify({ id: id })
     });
     var data = await res.json();
-    if (data.success) {
+    if (data.success) { if (data.token) localStorage.setItem('jj_admin_token', data.token);
       products = products.filter(function(x){ return x.id !== id; });
       renderProducts();
       renderDashboard();
